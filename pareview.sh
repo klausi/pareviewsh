@@ -145,6 +145,16 @@ if [ $? = 0 ]; then
   echo "$COMMENTS"
   echo "</code></li>"
 fi
+# files[] not containing classes/interfaces
+FILES=`grep -E "files\[\]" $NAME.info | grep -o -E "[[:alnum:]]+\.[[:alnum:]]+$"`
+if [ $? = 0 ]; then
+  for FILE in $FILES; do
+    grep -q -E "^(class|interface) " $FILE &> /dev/null
+    if [ $? -ne 0 ]; then
+      echo "<li>$FILE in $NAME.info: It's only necessary to <a href=\"http://drupal.org/node/542202#files\">declare files[] if they declare a class or interface</a>.</li>"
+    fi
+  done
+fi
 echo "</ul>"
 
 echo "<i>This automated report was generated with <a href=\"/sandbox/klausi/1320008\">PAReview.sh</a>, your friendly project application review script. Please report any bugs to klausi.</i>"
