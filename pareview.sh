@@ -3,12 +3,11 @@
 ## You need a Drupal installation + drush + coder_review enabled.
 ## This script must be run from somewhere in your Drupal installation.
 
-DRUSH_OUTPUT=`drush status | grep "Drupal root"`
-DRUPAL_ROOT=${DRUSH_OUTPUT:27}
+DRUPAL_ROOT=`drush status --pipe drupal_root`
 
 if [ ! -d $DRUPAL_ROOT/sites/all/modules ]; then
   if [ ! -d $DRUPAL_ROOT/sites/all ]; then
-    echo "Directory $DRUPAL_ROOT/sites/all not found, please check your DRUPAL_ROOT setting. Aborting."
+    echo "Directory $DRUPAL_ROOT/sites/all not found, please make sure that you run this script in a Drupal installation. Aborting."
     exit
   else
     mkdir $DRUPAL_ROOT/sites/all/modules
