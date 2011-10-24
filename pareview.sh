@@ -70,12 +70,12 @@ fi
 
 # README.txt present?
 if [ ! -e README.txt ]; then
-  echo "<li>README.txt is missing, see <a href=\"http://drupal.org/node/447604\">guidelines for in-project documentation</a>.</li>"
+  echo "<li>README.txt is missing, see the <a href=\"http://drupal.org/node/447604\">guidelines for in-project documentation</a>.</li>"
 else
 # line length in README.txt
   LENGTH=`wc -L README.txt | grep -o "^[0-9]*"`
   if [ $LENGTH -gt "80" ]; then
-    echo "<li>Lines in README.txt should not exceed 80 characters.</li>"
+    echo "<li>Lines in README.txt should not exceed 80 characters, see the <a href=\"http://drupal.org/node/447604\">guidelines for in-project documentation</a>.</li>"
   fi
 fi
 # LICENSE.txt present?
@@ -121,21 +121,22 @@ if [ $? = 0 ]; then
   echo "<li>The \"?>\" PHP delimiter at the end of files is discouraged, see http://drupal.org/node/318#phptags</li>"
 fi
 # // Comments should start capitalized
-COMMENTS=`grep -rn -E "^[[:space:]]*//[[:space:]]?[[:lower:]]" *`
-if [ $? = 0 ]; then
-  echo "<li>All comments should start capitalized."
-  echo "<code>"
-  echo "$COMMENTS"
-  echo "</code></li>"
-fi
+# comments can take more than one line, so we cannot use this rules like this.
+#COMMENTS=`grep -rn -E "^[[:space:]]*//[[:space:]]?[[:lower:]]" *`
+#if [ $? = 0 ]; then
+#  echo "<li>All comments should start capitalized."
+#  echo "<code>"
+#  echo "$COMMENTS"
+#  echo "</code></li>"
+#fi
 # // Comments should end with a "."
-COMMENTS=`grep -rn -E "^[[:space:]]*//.*[[:alnum:]][[:space:]]*$" *`
-if [ $? = 0 ]; then
-  echo "<li>All comments should end with a \".\"."
-  echo "<code>"
-  echo "$COMMENTS"
-  echo "</code></li>"
-fi
+#COMMENTS=`grep -rn -E "^[[:space:]]*//.*[[:alnum:]][[:space:]]*$" *`
+#if [ $? = 0 ]; then
+#  echo "<li>All comments should end with a \".\"."
+#  echo "<code>"
+#  echo "$COMMENTS"
+#  echo "</code></li>"
+#fi
 # comments: space after //
 COMMENTS=`grep -rn -E "^[[:space:]]*//[[:alnum:]].*" *`
 if [ $? = 0 ]; then
