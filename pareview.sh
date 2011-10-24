@@ -70,7 +70,7 @@ fi
 
 # README.txt present?
 if [ ! -e README.txt ]; then
-  echo "<li>README.txt is missing, see <a href="http://drupal.org/node/447604">guidelines for in-project documentation</a>.</li>"
+  echo "<li>README.txt is missing, see <a href=\"http://drupal.org/node/447604\">guidelines for in-project documentation</a>.</li>"
 else
 # line length in README.txt
   LENGTH=`wc -L README.txt | grep -o "^[0-9]*"`
