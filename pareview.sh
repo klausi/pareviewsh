@@ -62,7 +62,7 @@ echo "<ul>"
 CODER=`drush coder-review no-empty minor comment i18n security sql style $CODER_PATH`
 echo $CODER | grep -q "+"
 if [ $? = 0 ]; then
-  echo "<li>Run <a href=\"/project/coder\">coder</a> to check your style, some issues were found:"
+  echo "<li>Run <a href=\"/project/coder\">coder</a> to check your style, some issues were found (please check the <a href=\"http://drupal.org/node/318\">Drupal coding standards</a>):"
   echo "<code>"
   echo "$CODER"
   echo "</code></li>"
@@ -145,4 +145,6 @@ if [ $? = 0 ]; then
   echo "</code></li>"
 fi
 echo "</ul>"
+
+echo "<i>This automated report was generated with <a href=\"/sandbox/klausi/1320008\">PAReview.sh</a>, your friendly project application review script. Please report any bugs to klausi.</i>"
 
