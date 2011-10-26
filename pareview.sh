@@ -50,6 +50,8 @@ echo "Review of the $BRANCH_NAME branch:"
 # get module/theme name
 INFO_FILE=`ls *.info`
 NAME=${INFO_FILE%.*}
+PHP_FILES=`find . -not \( -name \*.tpl.php \) -and \( -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install \)
+`
 
 # coder is not very good at detecting files in directories.
 if [ -e $NAME.module ]; then
@@ -116,9 +118,12 @@ if [ -e $NAME.install ]; then
   fi  
 fi
 # ?> PHP delimiter at the end of any file?
-grep -q "^\?>" *
+FILES=`grep -l "^\?>" $PHP_FILES`
 if [ $? = 0 ]; then
-  echo "<li>The \"?>\" PHP delimiter at the end of files is discouraged, see http://drupal.org/node/318#phptags</li>"
+  echo "<li>The \"?>\" PHP delimiter at the end of files is discouraged, see http://drupal.org/node/318#phptags"
+  echo "<code>"
+  echo "$FILES"
+  echo "</code></li>"
 fi
 # // Comments should start capitalized
 # comments can take more than one line, so we cannot use this rules like this.
@@ -156,6 +161,16 @@ if [ $? = 0 ]; then
   done
 fi
 echo "</ul>"
+# functions without doc blocks
+for FILE in $PHP_FILES; do
+  FUNCTIONS=`grep -E -B 1 "^function [[:alnum:]]+.*\(.*\) \{" $FILE | grep -E -A 1 "^[[:space:]]*$"`
+  if [ $? = 0 ]; then
+    echo "<li>$FILE: all functions should have doxygen doc blocks, see http://drupal.org/node/1354#functions"
+    echo "<code>"
+    echo "$FUNCTIONS"
+    echo "</code></li>"
+  fi
+done
 
 echo "<i>This automated report was generated with <a href=\"/sandbox/klausi/1320008\">PAReview.sh</a>, your friendly project application review script. Please report any bugs to klausi.</i>"
 
