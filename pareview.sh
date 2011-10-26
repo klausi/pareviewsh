@@ -151,7 +151,7 @@ if [ $? = 0 ]; then
   echo "</code></li>"
 fi
 # files[] not containing classes/interfaces
-FILES=`grep -E "files\[\]" $NAME.info | grep -o -E "[[:alnum:]]+\.[[:alnum:]]+$"`
+FILES=`grep -E "files\[\]" $NAME.info | grep -o -E "[^[:space:]=]+[[:space:]]*$"`
 if [ $? = 0 ]; then
   for FILE in $FILES; do
     grep -q -E "^(class|interface) " $FILE &> /dev/null
