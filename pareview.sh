@@ -160,7 +160,6 @@ if [ $? = 0 ]; then
     fi
   done
 fi
-echo "</ul>"
 # functions without doc blocks
 for FILE in $PHP_FILES; do
   FUNCTIONS=`grep -E -B 1 "^function [[:alnum:]]+.*\(.*\) \{" $FILE | grep -E -A 1 "^[[:space:]]*$"`
@@ -171,6 +170,7 @@ for FILE in $PHP_FILES; do
     echo "</code></li>"
   fi
 done
+echo "</ul>"
 
 echo "<i>This automated report was generated with <a href=\"/sandbox/klausi/1320008\">PAReview.sh</a>, your friendly project application review script. Please report any bugs to klausi.</i>"
 
