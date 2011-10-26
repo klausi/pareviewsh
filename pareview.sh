@@ -170,6 +170,14 @@ for FILE in $PHP_FILES; do
     echo "</code></li>"
   fi
 done
+# space before and after "==", "&&", "||" etc.
+OPERATORS=`grep -rn -E "([^[:space:]\!=]==|==[^[:space:]=]|[^[:space:]]&&|&&[^[:space:]]|[^[:space:]]\|\||\|\|[^[:space:]])" *`
+if [ $? = 0 ]; then
+  echo "<li>There should be a space before and after operators like ==, ===, && and ||. See http://drupal.org/node/318#controlstruct"
+  echo "<code>"
+  echo "$OPERATORS"
+  echo "</code></li>"
+fi
 echo "</ul>"
 
 echo "<i>This automated report was generated with <a href=\"/sandbox/klausi/1320008\">PAReview.sh</a>, your friendly project application review script. Please report any bugs to klausi.</i>"
