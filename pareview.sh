@@ -178,6 +178,15 @@ if [ $? = 0 ]; then
   echo "$OPERATORS"
   echo "</code></li>"
 fi
+# bad line endings in files
+FILES=`find . -type f`
+BAD_LINES=`file $FILES | grep "line terminators"`
+if [ $? = 0 ]; then
+  echo "<li>Bad line endings were found, always use unix style terminators. See http://drupal.org/coding-standards#indenting"
+  echo "<code>"
+  echo "$BAD_LINES"
+  echo "</code></li>"
+fi
 echo "</ul>"
 
 echo "<i>This automated report was generated with <a href=\"/sandbox/klausi/1320008\">PAReview.sh</a>, your friendly project application review script. Please report any bugs to klausi.</i>"
