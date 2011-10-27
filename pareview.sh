@@ -50,8 +50,8 @@ echo "Review of the $BRANCH_NAME branch:"
 # get module/theme name
 INFO_FILE=`ls *.info`
 NAME=${INFO_FILE%.*}
-PHP_FILES=`find . -not \( -name \*.tpl.php \) -and \( -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install \)
-`
+PHP_FILES=`find . -not \( -name \*.tpl.php \) -and \( -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install \)`
+CODE_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js`
 
 # coder is not very good at detecting files in directories.
 if [ -e $NAME.module ]; then
@@ -171,7 +171,7 @@ for FILE in $PHP_FILES; do
   fi
 done
 # space before and after "==", "&&", "||" etc.
-OPERATORS=`grep -rn -E "([^[:space:]\!=]==|==[^[:space:]=]|[^[:space:]]&&|&&[^[:space:]]|[^[:space:]]\|\||\|\|[^[:space:]])" *`
+OPERATORS=`grep -rnI -E "([^[:space:]\!=]==|==[^[:space:]=]|[^[:space:]]&&|&&[^[:space:]]|[^[:space:]]\|\||\|\|[^[:space:]])" *`
 if [ $? = 0 ]; then
   echo "<li>There should be a space before and after operators like ==, ===, && and ||. See http://drupal.org/node/318#controlstruct"
   echo "<code>"
