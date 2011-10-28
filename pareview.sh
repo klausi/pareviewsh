@@ -99,7 +99,7 @@ if [ $? = 0 ]; then
   echo "<li>Remove \"project\" from the info file, it will be added by drupal.org packaging automatically.</li>"
 fi
 # "datestamp" in info file?
-grep -q -e "project[[:space:]]*=[[:space:]]*" $NAME.info
+grep -q -e "datestamp[[:space:]]*=[[:space:]]*" $NAME.info
 if [ $? = 0 ]; then
   echo "<li>Remove \"datestamp\" from the info file, it will be added by drupal.org packaging automatically.</li>"
 fi
@@ -196,7 +196,7 @@ if [ $? = 0 ]; then
   echo "</code></li>"
 fi
 # no space before assignment =
-BAD_LINES=`grep -rn -E "^[^']*[^[:space:]\.=\!]=" $CODE_FILES`
+BAD_LINES=`grep -rn -E "^[^']*[^[:space:]\.=\!]=[^=]" $CODE_FILES`
 if [ $? = 0 ]; then
   echo "<li>Assignments should hava a space before and after the operator, see http://drupal.org/node/318#operators"
   echo "<code>"
