@@ -187,6 +187,14 @@ if [ $? = 0 ]; then
   echo "$BAD_LINES"
   echo "</code></li>"
 fi
+# space after "if ("
+BAD_LINES=`grep -n -E "(if|elseif|foreach|for|switch) \( " *`
+if [ $? = 0 ]; then
+  echo "<li>There should be no space after the opening \"(\" of a control structure, see http://drupal.org/node/318#controlstruct"
+  echo "<code>"
+  echo "$BAD_LINES"
+  echo "</code></li>"
+fi
 echo "</ul>"
 
 echo "<i>This automated report was generated with <a href=\"/sandbox/klausi/1320008\">PAReview.sh</a>, your friendly project application review script. Please report any bugs to klausi.</i>"
