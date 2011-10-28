@@ -203,6 +203,14 @@ if [ $? = 0 ]; then
   echo "$BAD_LINES"
   echo "</code></li>"
 fi
+# old CVS $Id$ tags
+FILES=`grep -n "\\$Id" *`
+if [ $? = 0 ]; then
+  echo "<li>Remove all old CVS \$Id tags, they are not needed anymore."
+  echo "<code>"
+  echo "$FILES"
+  echo "</code></li>"
+fi
 echo "</ul>"
 
 echo "<i>This automated report was generated with <a href=\"/sandbox/klausi/1320008\">PAReview.sh</a>, your friendly project application review script. Please report any bugs to klausi.</i>"
