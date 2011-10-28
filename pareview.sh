@@ -52,6 +52,12 @@ INFO_FILE=`ls *.info`
 NAME=${INFO_FILE%.*}
 PHP_FILES=`find . -not \( -name \*.tpl.php \) -and \( -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install \)`
 CODE_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js`
+# ensure $PHP_FILES is not empty
+if [ -z "$PHP_FILES" ]; then
+  # just set it to the current directory.
+  PHP_FILES="."
+  CODE_FILES="."
+fi
 
 # coder is not very good at detecting files in directories.
 if [ -e $NAME.module ]; then
