@@ -50,8 +50,8 @@ echo "Review of the $BRANCH_NAME branch:"
 # get module/theme name
 INFO_FILE=`ls *.info`
 NAME=${INFO_FILE%.*}
-PHP_FILES=`find . -not \( -name \*.tpl.php \) -and \( -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install \)`
-CODE_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js`
+PHP_FILES=`find . -not \( -name \*.tpl.php \) -and \( -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.test \)`
+CODE_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js -or -name \*.test`
 # ensure $PHP_FILES is not empty
 if [ -z "$PHP_FILES" ]; then
   # just set it to the current directory.
@@ -183,6 +183,16 @@ for FILE in $PHP_FILES; do
     echo "<li>$FILE: all functions should have doxygen doc blocks, see http://drupal.org/node/1354#functions"
     echo "<code>"
     echo "$FUNCTIONS"
+    echo "</code></li>"
+  fi
+done
+# indentation of @return description
+for FILE in $PHP_FILES; do
+  COMMENTS=`grep -n -E -A 1 "@return" $FILE | grep -v -E "@return" | grep -v " \*   "`
+  if [ $? = 0 ]; then
+    echo "<li>$FILE: The description for the @return documentation is either missing or not formatted correctly. See http://drupal.org/node/1354#functions"
+    echo "<code>"
+    echo "$COMMENTS"
     echo "</code></li>"
   fi
 done
