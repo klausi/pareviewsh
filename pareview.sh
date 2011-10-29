@@ -186,6 +186,16 @@ for FILE in $PHP_FILES; do
     echo "</code></li>"
   fi
 done
+# functions without module prefix
+for FILE in $PHP_FILES; do
+  FUNCTIONS=`grep -E "^function [[:alnum:]]+.*\(.*\) \{" $FILE | grep -v -E "^function ($NAME|theme)"`
+  if [ $? = 0 ]; then
+    echo "<li>$FILE: all functions should be prefixed with your module/theme name to avoid name clashes. See http://drupal.org/node/318#naming"
+    echo "<code>"
+    echo "$FUNCTIONS"
+    echo "</code></li>"
+  fi
+done
 # indentation of @return description
 for FILE in $PHP_FILES; do
   COMMENTS=`grep -n -E -A 1 "@return" $FILE | grep -v -E "@return" | grep -v " \*   "`
