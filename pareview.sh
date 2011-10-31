@@ -198,7 +198,7 @@ for FILE in $PHP_FILES; do
 done
 # indentation of @param/@return description
 for FILE in $PHP_FILES; do
-  COMMENTS=`grep -n -E -A 1 "(@return|@param)" $FILE | grep -v -E "(@return|@param)" | grep -v " \*   "`
+  COMMENTS=`grep -n -E -A 1 "(@return|@param)" $FILE | grep -v -E "(@return|@param|^--$)" | grep -v " \*   "`
   if [ $? = 0 ]; then
     echo "<li>$FILE: The description for the @param/@return documentation is either missing or not formatted correctly. See http://drupal.org/node/1354#functions"
     echo "<code>"
