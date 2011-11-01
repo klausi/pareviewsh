@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## You need a Drupal installation + drush + coder_review enabled.
+## You need a Drupal installation + git + drush + coder_review enabled.
 ## This script must be run from somewhere in your Drupal installation.
 
 DRUPAL_ROOT=`drush status --pipe drupal_root`
@@ -32,12 +32,12 @@ cd test_candidate
 
 # checkout branch
 # first try 7.x-?.x
-BRANCH_NAME=`git branch -a | tac | grep -m 1 -o -E "7\.x-[0-9]\.x$"`
+BRANCH_NAME=`git branch -a | grep -o -E "7\.x-[0-9]\.x$" | tail -n1`
 if [ $? = 0 ]; then
   git checkout -q $BRANCH_NAME &> /dev/null
 else
   # try 6.x-?.x
-  BRANCH_NAME=`git branch -a | tac | grep -m 1 -o -E "6\.x-[0-9]\.x$"`
+  BRANCH_NAME=`git branch -a | grep -o -E "6\.x-[0-9]\.x$" | tail -n1`
   if [ $? = 0 ]; then
     git checkout -q $BRANCH_NAME &> /dev/null
   else
@@ -81,8 +81,8 @@ if [ ! -e README.txt ]; then
   echo "<li>README.txt is missing, see the <a href=\"http://drupal.org/node/447604\">guidelines for in-project documentation</a>.</li>"
 else
 # line length in README.txt
-  LENGTH=`wc -L README.txt | grep -o "^[0-9]*"`
-  if [ $LENGTH -gt "80" ]; then
+  LONG=`grep -c '.\{81\}' README.txt`
+  if [ $LONG -gt "0" ]; then
     echo "<li>Lines in README.txt should not exceed 80 characters, see the <a href=\"http://drupal.org/node/447604\">guidelines for in-project documentation</a>.</li>"
   fi
 fi
