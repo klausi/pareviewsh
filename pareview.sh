@@ -33,12 +33,12 @@ cd test_candidate
 # checkout branch
 # first try 7.x-?.x
 BRANCH_NAME=`git branch -a | grep -o -E "7\.x-[0-9]\.x$" | tail -n1`
-if [ $? = 0 ]; then
+if [ -n "$BRANCH_NAME" ]; then
   git checkout -q $BRANCH_NAME &> /dev/null
 else
   # try 6.x-?.x
   BRANCH_NAME=`git branch -a | grep -o -E "6\.x-[0-9]\.x$" | tail -n1`
-  if [ $? = 0 ]; then
+  if [ -n "$BRANCH_NAME" ]; then
     git checkout -q $BRANCH_NAME &> /dev/null
   else
     BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
