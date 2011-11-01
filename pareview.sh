@@ -166,6 +166,14 @@ for FILE in $CODE_FILES; do
     echo "</code></li>"
   fi
 done
+# comments not on a separate line
+COMMENTS=`grep -n -E ".*[^[:space:]]+.*//[^\"']*$" $CODE_FILES`
+if [ $? = 0 ]; then
+  echo "<li>Comments should be on a speparate before the code line, see http://drupal.org/node/1354#inline"
+  echo "<code>"
+  echo "$COMMENTS"
+  echo "</code></li>"
+fi
 # files[] not containing classes/interfaces
 FILES=`grep -E "files\[\]" $NAME.info | grep -o -E "[^[:space:]=]+[[:space:]]*$"`
 if [ $? = 0 ]; then
