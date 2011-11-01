@@ -171,7 +171,7 @@ for FILE in $CODE_FILES; do
   fi
 done
 # comments not on a separate line
-COMMENTS=`grep -n -E ".*[^[:space:]]+.*//[^\"']*$" $CODE_FILES`
+COMMENTS=`grep -n -E ".*[^[:space:]]+.*[^:]//[^\"']*$" $CODE_FILES`
 if [ $? = 0 ]; then
   echo "<li>Comments should be on a speparate before the code line, see http://drupal.org/node/1354#inline"
   echo "<code>"
