@@ -182,7 +182,7 @@ fi
 FILES=`grep -E "files\[\]" $NAME.info | grep -o -E "[^[:space:]=]+[[:space:]]*$"`
 if [ $? = 0 ]; then
   for FILE in $FILES; do
-    grep -q -E "^(class|interface) " $FILE &> /dev/null
+    grep -q -E "^(abstract )?(class|interface) " $FILE &> /dev/null
     if [ $? -ne 0 ]; then
       echo "<li>$FILE in $NAME.info: It's only necessary to <a href=\"http://drupal.org/node/542202#files\">declare files[] if they declare a class or interface</a>.</li>"
     fi
