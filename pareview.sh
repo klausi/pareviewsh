@@ -190,7 +190,7 @@ if [ $? = 0 ]; then
 fi
 # functions without doc blocks
 for FILE in $PHP_FILES; do
-  FUNCTIONS=`grep -E -B 1 "^function [[:alnum:]_]+.*\(.*\) \{" $FILE | grep -E -A 1 "^[[:space:]]*$"`
+  FUNCTIONS=`grep -E -B 1 "^function [[:alnum:]_]+.*\(.*\) ?\{" $FILE | grep -E -A 1 "^[[:space:]]*$"`
   if [ $? = 0 ]; then
     echo "<li>$FILE: all functions should have doxygen doc blocks, see http://drupal.org/node/1354#functions"
     echo "<code>"
