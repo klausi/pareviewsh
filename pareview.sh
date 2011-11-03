@@ -31,18 +31,28 @@ fi
 cd test_candidate
 
 # checkout branch
-# first try 7.x-?.x
-BRANCH_NAME=`git branch -a | grep -o -E "7\.x-[0-9]\.x$" | tail -n1`
-if [ -n "$BRANCH_NAME" ]; then
+# check if a branch name was passed on the command line
+if [ $2 ]; then
+  BRANCH_NAME=$2
   git checkout -q $BRANCH_NAME &> /dev/null
+  if [ $? = 1 ]; then
+    echo "Git checkout of branch $BRANCH_NAME failed. Aborting."
+    exit
+  fi
 else
-  # try 6.x-?.x
-  BRANCH_NAME=`git branch -a | grep -o -E "6\.x-[0-9]\.x$" | tail -n1`
+  # first try 7.x-?.x
+  BRANCH_NAME=`git branch -a | grep -o -E "7\.x-[0-9]\.x$" | tail -n1`
   if [ -n "$BRANCH_NAME" ]; then
     git checkout -q $BRANCH_NAME &> /dev/null
   else
-    BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
-    echo "It appears you are working in the \"$BRANCH_NAME\" branch in git. You should really be working in a version specific branch. The most direct documentation on this is <a href=\"http://drupal.org/node/1127732\">Moving from a master branch to a version branch.</a> For additional resources please see the documentation about <a href=\"http://drupal.org/node/1015226\">release naming conventions</a> and <a href=\"http://drupal.org/node/1066342\">creating a branch in git</a>."
+    # try 6.x-?.x
+    BRANCH_NAME=`git branch -a | grep -o -E "6\.x-[0-9]\.x$" | tail -n1`
+    if [ -n "$BRANCH_NAME" ]; then
+      git checkout -q $BRANCH_NAME &> /dev/null
+    else
+      BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
+      echo "It appears you are working in the \"$BRANCH_NAME\" branch in git. You should really be working in a version specific branch. The most direct documentation on this is <a href=\"http://drupal.org/node/1127732\">Moving from a master branch to a version branch.</a> For additional resources please see the documentation about <a href=\"http://drupal.org/node/1015226\">release naming conventions</a> and <a href=\"http://drupal.org/node/1066342\">creating a branch in git</a>."
+    fi
   fi
 fi
 echo "Review of the $BRANCH_NAME branch:"
