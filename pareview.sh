@@ -277,6 +277,14 @@ if [ $? = 0 ]; then
   echo "$FILES"
   echo "</code></li>"
 fi
+# class names should use camelCase
+BAD_LINES=`grep -rn -E "^(class|interface) [^[:space:]]*_" $PHP_FILES`
+if [ $? = 0 ]; then
+  echo "<li>Classes and Interfaces should use UpperCamel naming. See http://drupal.org/node/608152"
+  echo "<code>"
+  echo "$BAD_LINES"
+  echo "</code></li>"
+fi
 echo "</ul>"
 
 echo "<i>This automated report was generated with <a href=\"/sandbox/klausi/1320008\">PAReview.sh</a>, your friendly project application review script. Please report any bugs to klausi.</i>"
