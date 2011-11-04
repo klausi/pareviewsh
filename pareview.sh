@@ -223,7 +223,7 @@ done
 for FILE in $PHP_FILES; do
   COMMENTS=`grep -n -E -A 1 "(@return|@param)" $FILE | grep -v -E "(@return|@param|^--$)" | grep -v " \*   "`
   if [ $? = 0 ]; then
-    echo "<li>$FILE: The description for the @param/@return documentation is either missing or not formatted correctly. See http://drupal.org/node/1354#functions"
+    echo "<li>$FILE: The description on the line after the @param/@return documentation is either missing or not formatted correctly. See http://drupal.org/node/1354#functions"
     echo "<code>"
     echo "$COMMENTS"
     echo "</code></li>"
@@ -285,6 +285,24 @@ if [ $? = 0 ]; then
   echo "<code>"
   echo "$BAD_LINES"
   echo "</code></li>"
+fi
+# usage of t() in hook_schema()
+if [ -e $NAME.install ]; then
+  SCHEMA_LINE_NO=`grep -n -E "_schema\(\) ?\{" $NAME.install | cut -f1 -d:`
+  if [ -n "$SCHEMA_LINE_NO" ]; then
+    # @todo replace hard coded 1000 sed command with something that prints the
+    # rest of a file
+    SCHEMA_CONTENT=`sed -n $SCHEMA_LINE_NO,1000p $NAME.install`
+    SCHEMA_END_NO=`echo "$SCHEMA_CONTENT" | grep -n -E "^\}" | cut -f1 -d: | head -n1`
+    SCHEMA_CONTENT=`echo "$SCHEMA_CONTENT" | sed -n 1,"$SCHEMA_END_NO"p`
+    BAD_LINES=`echo "$SCHEMA_CONTENT" | grep -E "[^[:alnum:]_]t\("`
+    if [ $? = 0 ]; then
+      echo "<li>Do not use t() in hook_schema(), this will only generate overhead for translators."
+      echo "<code>"
+      echo "$BAD_LINES"
+      echo "</code></li>"
+    fi
+  fi
 fi
 echo "</ul>"
 
