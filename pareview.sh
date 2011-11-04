@@ -166,7 +166,7 @@ fi
 # comments: space after //
 COMMENTS=`grep -rn -E "^[[:space:]]*//[[:alnum:]].*" *`
 if [ $? = 0 ]; then
-  echo "<li>Comments: there should be a space after \"//\"."
+  echo "<li>Comments: there should be a space after \"//\", see http://drupal.org/node/1354#inline"
   echo "<code>"
   echo "$COMMENTS"
   echo "</code></li>"
