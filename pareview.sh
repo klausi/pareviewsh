@@ -58,7 +58,8 @@ fi
 echo "Review of the $BRANCH_NAME branch:"
 
 # get module/theme name
-INFO_FILE=`ls *.info`
+# if there is more than one info file we take the one with the shortest file name 
+INFO_FILE=`ls *.info | awk '{ print length($0),$0 | "sort -n"}' | head -n1 | grep -o -E "[^[:space:]]*$"`
 NAME=${INFO_FILE%.*}
 PHP_FILES=`find . -not \( -name \*.tpl.php \) -and \( -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.test \)`
 CODE_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js -or -name \*.test`
