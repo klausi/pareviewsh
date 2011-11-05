@@ -238,8 +238,7 @@ if [ $? = 0 ]; then
   echo "</code></li>"
 fi
 # bad line endings in files
-FILES=`find . -type f`
-BAD_LINES=`file $FILES | grep "line terminators"`
+BAD_LINES=`grep -rlI $'\r' *`
 if [ $? = 0 ]; then
   echo "<li>Bad line endings were found, always use unix style terminators. See http://drupal.org/coding-standards#indenting"
   echo "<code>"
