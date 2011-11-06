@@ -310,5 +310,5 @@ if [ -e $NAME.install ]; then
 fi
 echo "</ul>"
 
-echo "<i>This automated report was generated with <a href=\"/sandbox/klausi/1320008\">PAReview.sh</a>, your friendly project application review script. Please report any bugs to klausi.</i>"
+echo "<i>This automated report was generated with <a href=\"/sandbox/klausi/1320008\">PAReview.sh</a>, your friendly project application review script. Go and <a href=\"/project/issues/projectapplications?status=8\">review some other project applications</a>, so I can get back to yours sooner.</i>"
 
