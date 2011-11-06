@@ -262,7 +262,7 @@ if [ $? = 0 ]; then
   echo "</code></li>"
 fi
 # no space before assignment =
-BAD_LINES=`grep -rn -E "^[^'><]*[^[:space:]\.=\!<>\+\-]=[^=][^'\"]*$" $CODE_FILES`
+BAD_LINES=`grep -rn -E "^[^'\"><]*[^[:space:]\.=\!\"<>\+\-]=[^=][^'\"]*$" $CODE_FILES`
 if [ $? = 0 ]; then
   echo "<li>Assignments should have a space before and after the operator, see http://drupal.org/node/318#operators"
   echo "<code>"
