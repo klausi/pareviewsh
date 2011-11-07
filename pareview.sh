@@ -63,6 +63,8 @@ INFO_FILE=`ls *.info | awk '{ print length($0),$0 | "sort -n"}' | head -n1 | gre
 NAME=${INFO_FILE%.*}
 PHP_FILES=`find . -not \( -name \*.tpl.php \) -and \( -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.test \)`
 CODE_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js -or -name \*.test`
+TEXT_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js -or -name \*.test -or -name \*.css -or -name \*.txt -or -name \*.info`
+FILES=`find . -path ./.git -prune -o -type f -print`
 # ensure $PHP_FILES is not empty
 if [ -z "$PHP_FILES" ]; then
   # just set it to the current directory.
@@ -139,11 +141,11 @@ if [ -e $NAME.install ]; then
   fi  
 fi
 # ?> PHP delimiter at the end of any file?
-FILES=`grep -l "^\?>" $PHP_FILES`
+BAD_LINES=`grep -l "^\?>" $PHP_FILES`
 if [ $? = 0 ]; then
   echo "<li>The \"?>\" PHP delimiter at the end of files is discouraged, see http://drupal.org/node/318#phptags"
   echo "<code>"
-  echo "$FILES"
+  echo "$BAD_LINES"
   echo "</code></li>"
 fi
 # // Comments should start capitalized
@@ -190,9 +192,9 @@ if [ $? = 0 ]; then
   echo "</code></li>"
 fi
 # files[] not containing classes/interfaces
-FILES=`grep -E "files\[\]" $NAME.info | grep -o -E "[^[:space:]=]+[[:space:]]*$"`
+INFO_FILES=`grep -E "files\[\]" $NAME.info | grep -o -E "[^[:space:]=]+[[:space:]]*$"`
 if [ $? = 0 ]; then
-  for FILE in $FILES; do
+  for FILE in $INFO_FILES; do
     grep -q -E "^(abstract )?(class|interface) " $FILE &> /dev/null
     if [ $? -ne 0 ]; then
       echo "<li>$FILE in $NAME.info: It's only necessary to <a href=\"http://drupal.org/node/542202#files\">declare files[] if they declare a class or interface</a>.</li>"
@@ -238,7 +240,6 @@ if [ $? = 0 ]; then
   echo "</code></li>"
 fi
 # bad line endings in files
-FILES=`find . -type f`
 BAD_LINES1=`file $FILES | grep "line terminators"`
 # the "file" command does not detect bad line endings in HTML style files, so
 # we run this grep command in addition.
@@ -275,11 +276,11 @@ if [ $? = 0 ]; then
   echo "</code></li>"
 fi
 # old CVS $Id$ tags
-FILES=`grep -n "\\$Id" *`
+BAD_LINES=`grep -rnI "\\$Id" *`
 if [ $? = 0 ]; then
   echo "<li>Remove all old CVS \$Id tags, they are not needed anymore."
   echo "<code>"
-  echo "$FILES"
+  echo "$BAD_LINES"
   echo "</code></li>"
 fi
 # class names should use camelCase
@@ -307,6 +308,19 @@ if [ -e $NAME.install ]; then
       echo "</code></li>"
     fi
   fi
+fi
+# last line in a file not empty
+for FILE in $TEXT_FILES; do
+  BAD_LINES=`tail -n1 $FILE | grep -v "^$"`
+  if [ $? = 0 ]; then
+    BAD_FILES=("${BAD_FILES[@]}" "$FILE")
+  fi
+done
+if [ -n $BAD_FILES ]; then
+  echo "<li>All text files should end in a single newline (\n). See http://drupal.org/node/318#indenting"
+  echo "<code>"
+  echo "${BAD_FILES[*]}"
+  echo "</code></li>"
 fi
 echo "</ul>"
 
