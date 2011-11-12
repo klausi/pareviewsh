@@ -161,23 +161,6 @@ if [ $? = 0 ]; then
   echo "$BAD_LINES"
   echo "</code></li>"
 fi
-# // Comments should start capitalized
-# comments can take more than one line, so we cannot use this rules like this.
-#COMMENTS=`grep -rn -E "^[[:space:]]*//[[:space:]]?[[:lower:]]" *`
-#if [ $? = 0 ]; then
-#  echo "<li>All comments should start capitalized."
-#  echo "<code>"
-#  echo "$COMMENTS"
-#  echo "</code></li>"
-#fi
-# // Comments should end with a "."
-#COMMENTS=`grep -rn -E "^[[:space:]]*//.*[[:alnum:]][[:space:]]*$" *`
-#if [ $? = 0 ]; then
-#  echo "<li>All comments should end with a \".\"."
-#  echo "<code>"
-#  echo "$COMMENTS"
-#  echo "</code></li>"
-#fi
 # comments: space after //
 COMMENTS=`grep -rn -E "^[[:space:]]*//[[:alnum:]].*" *`
 if [ $? = 0 ]; then
@@ -244,14 +227,6 @@ for FILE in $PHP_FILES; do
     echo "</code></li>"
   fi
 done
-# space before and after "==", "&&", "||" etc.
-OPERATORS=`grep -rnI -E "([^[:space:]\!=]==|==[^[:space:]=]|[^[:space:]]&&|&&[^[:space:]]|[^[:space:]]\|\||\|\|[^[:space:]])" *`
-if [ $? = 0 ]; then
-  echo "<li>There should be a space before and after operators like ==, ===, && and ||. See http://drupal.org/node/318#controlstruct"
-  echo "<code>"
-  echo "$OPERATORS"
-  echo "</code></li>"
-fi
 # bad line endings in files
 BAD_LINES1=`file $FILES | grep "line terminators"`
 # the "file" command does not detect bad line endings in HTML style files, so
@@ -276,14 +251,6 @@ fi
 BAD_LINES=`grep -rnI -E "array\( ." *`
 if [ $? = 0 ]; then
   echo "<li>There should be no space after the opening \"(\" of an array, see http://drupal.org/node/318#array"
-  echo "<code>"
-  echo "$BAD_LINES"
-  echo "</code></li>"
-fi
-# no space before assignment =
-BAD_LINES=`grep -rn -E "^[^'\"><]*[^[:space:]\.=\!\"<>\+\-]=[^=][^'\"]*$" $CODE_FILES`
-if [ $? = 0 ]; then
-  echo "<li>Assignments should have a space before and after the operator, see http://drupal.org/node/318#operators"
   echo "<code>"
   echo "$BAD_LINES"
   echo "</code></li>"
