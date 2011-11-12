@@ -93,9 +93,9 @@ fi
 # check if the command "phpcs" is available
 hash phpcs 2>&-
 if [ $? = 0 ]; then
-  DRUPALCS=`phpcs --standard=drupalcs --extensions=php,module,inc,install,test,profile,theme .`
+  DRUPALCS=`phpcs --standard=DrupalCodingStandard --extensions=php,module,inc,install,test,profile,theme .`
   if [ $? = 1 ]; then
-    echo "<li><a href=\"https://github.com/ericduran/drupalcs\">drupalcs</a> has found some code style issues (please check the <a href=\"http://drupal.org/node/318\">Drupal coding standards</a>):"
+    echo "<li><a href=\"http://drupal.org/project/drupalcs\">Drupal Code Sniffer</a> has found some code style issues (please check the <a href=\"http://drupal.org/node/318\">Drupal coding standards</a>):"
     echo "<code>"
     echo "$DRUPALCS"
     echo "</code></li>"
