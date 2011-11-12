@@ -14,48 +14,54 @@ if [ ! -d $DRUPAL_ROOT/sites/all/modules ]; then
   fi
 fi
 
-if [ -d $DRUPAL_ROOT/sites/all/modules/pareview_temp ]; then
-  # clean up test dir
-  rm -rf $DRUPAL_ROOT/sites/all/modules/pareview_temp/*
+# check if the first argument is valid directory.
+if [ -d $1 ]; then
+ cd $1
+# otherwise treat the user input as git URL.
 else
-  mkdir $DRUPAL_ROOT/sites/all/modules/pareview_temp
-fi
+  if [ -d $DRUPAL_ROOT/sites/all/modules/pareview_temp ]; then
+    # clean up test dir
+    rm -rf $DRUPAL_ROOT/sites/all/modules/pareview_temp/*
+  else
+    mkdir $DRUPAL_ROOT/sites/all/modules/pareview_temp
+  fi
 
-cd $DRUPAL_ROOT/sites/all/modules/pareview_temp
-# clone project quietly
-git clone -q $1 test_candidate &> /dev/null
-if [ $? -ne 0 ]; then
-  echo "Git clone failed. Aborting."
-  exit
-fi
-cd test_candidate
-
-# checkout branch
-# check if a branch name was passed on the command line
-if [ $2 ]; then
-  BRANCH_NAME=$2
-  git checkout -q $BRANCH_NAME &> /dev/null
-  if [ $? = 1 ]; then
-    echo "Git checkout of branch $BRANCH_NAME failed. Aborting."
+  cd $DRUPAL_ROOT/sites/all/modules/pareview_temp
+  # clone project quietly
+  git clone -q $1 test_candidate &> /dev/null
+  if [ $? -ne 0 ]; then
+    echo "Git clone failed. Aborting."
     exit
   fi
-else
-  # first try 7.x-?.x
-  BRANCH_NAME=`git branch -a | grep -o -E "7\.x-[0-9]\.x$" | tail -n1`
-  if [ -n "$BRANCH_NAME" ]; then
+  cd test_candidate
+
+  # checkout branch
+  # check if a branch name was passed on the command line
+  if [ $2 ]; then
+    BRANCH_NAME=$2
     git checkout -q $BRANCH_NAME &> /dev/null
+    if [ $? = 1 ]; then
+      echo "Git checkout of branch $BRANCH_NAME failed. Aborting."
+      exit
+    fi
   else
-    # try 6.x-?.x
-    BRANCH_NAME=`git branch -a | grep -o -E "6\.x-[0-9]\.x$" | tail -n1`
+    # first try 7.x-?.x
+    BRANCH_NAME=`git branch -a | grep -o -E "7\.x-[0-9]\.x$" | tail -n1`
     if [ -n "$BRANCH_NAME" ]; then
       git checkout -q $BRANCH_NAME &> /dev/null
     else
-      BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
-      echo "It appears you are working in the \"$BRANCH_NAME\" branch in git. You should really be working in a version specific branch. The most direct documentation on this is <a href=\"http://drupal.org/node/1127732\">Moving from a master branch to a version branch.</a> For additional resources please see the documentation about <a href=\"http://drupal.org/node/1015226\">release naming conventions</a> and <a href=\"http://drupal.org/node/1066342\">creating a branch in git</a>."
+      # try 6.x-?.x
+      BRANCH_NAME=`git branch -a | grep -o -E "6\.x-[0-9]\.x$" | tail -n1`
+      if [ -n "$BRANCH_NAME" ]; then
+        git checkout -q $BRANCH_NAME &> /dev/null
+      else
+        BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
+        echo "It appears you are working in the \"$BRANCH_NAME\" branch in git. You should really be working in a version specific branch. The most direct documentation on this is <a href=\"http://drupal.org/node/1127732\">Moving from a master branch to a version branch.</a> For additional resources please see the documentation about <a href=\"http://drupal.org/node/1015226\">release naming conventions</a> and <a href=\"http://drupal.org/node/1066342\">creating a branch in git</a>."
+      fi
     fi
   fi
+  echo "Review of the $BRANCH_NAME branch:"
 fi
-echo "Review of the $BRANCH_NAME branch:"
 
 # get module/theme name
 # if there is more than one info file we take the one with the shortest file name 
