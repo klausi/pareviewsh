@@ -302,7 +302,7 @@ for FILE in $TEXT_FILES; do
     BAD_FILES=("${BAD_FILES[@]}" "$FILE")
   fi
 done
-if [ -n $BAD_FILES ]; then
+if [ -n "$BAD_FILES" ]; then
   echo "<li>All text files should end in a single newline (\n). See http://drupal.org/node/318#indenting"
   echo "<code>"
   echo "${BAD_FILES[*]}"
