@@ -203,19 +203,9 @@ if [ $? = 0 ]; then
     fi
   done
 fi
-# functions without doc blocks
-for FILE in $PHP_FILES; do
-  FUNCTIONS=`grep -E -B 1 "^function [[:alnum:]_]+.*\(.*\) ?\{" $FILE | grep -E -A 1 "^[[:space:]]*$"`
-  if [ $? = 0 ]; then
-    echo "<li>$FILE: all functions should have doxygen doc blocks, see http://drupal.org/node/1354#functions"
-    echo "<code>"
-    echo "$FUNCTIONS"
-    echo "</code></li>"
-  fi
-done
 # functions without module prefix
 for FILE in $PHP_FILES; do
-  FUNCTIONS=`grep -E "^function [[:alnum:]_]+.*\(.*\) \{" $FILE | grep -v -E "^function (_?$NAME|theme)"`
+  FUNCTIONS=`grep -E "^function [[:alnum:]_]+.*\(.*\) \{" $FILE | grep -v -E "^function (_?$NAME|theme|template|phptemplate)"`
   if [ $? = 0 ]; then
     echo "<li>$FILE: all functions should be prefixed with your module/theme name to avoid name clashes. See http://drupal.org/node/318#naming"
     echo "<code>"
