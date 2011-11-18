@@ -175,16 +175,6 @@ if [ $? = 0 ]; then
   echo "$COMMENTS"
   echo "</code></li>"
 fi
-# comment length > 80 chars
-for FILE in $CODE_FILES; do
-  COMMENTS=`grep -r -E "^[[:space:]]*//" $FILE | grep -E ".{81}"`
-  if [ $? = 0 ]; then
-    echo "<li>$FILE: comment lines should break at 80 characters, see http://drupal.org/node/1354#general"
-    echo "<code>"
-    echo "$COMMENTS"
-    echo "</code></li>"
-  fi
-done
 # comments not on a separate line
 COMMENTS=`grep -n -E ".*[^[:space:]]+.*[^:]//[^\"']*$" $CODE_FILES`
 if [ $? = 0 ]; then
