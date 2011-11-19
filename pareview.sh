@@ -145,20 +145,6 @@ grep -q -e "datestamp[[:space:]]*=[[:space:]]*" $NAME.info
 if [ $? = 0 ]; then
   echo "<li>Remove \"datestamp\" from the info file, it will be added by drupal.org packaging automatically.</li>"
 fi
-# @file in module file?
-if [ -e $NAME.module ]; then
-  grep -q " \* @file" $NAME.module
-  if [ $? = 1 ]; then
-    echo "<li>@file doc block is missing in the module file, see http://drupal.org/node/1354#files .</li>"
-  fi  
-fi
-# @file in install file?
-if [ -e $NAME.install ]; then
-  grep -q " \* @file" $NAME.install
-  if [ $? = 1 ]; then
-    echo "<li>@file doc block is missing in the install file, see http://drupal.org/node/1354#files .</li>"
-  fi  
-fi
 # ?> PHP delimiter at the end of any file?
 BAD_LINES=`grep -l "^\?>" $PHP_FILES`
 if [ $? = 0 ]; then
