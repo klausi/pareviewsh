@@ -167,14 +167,6 @@ if [ $? = 0 ]; then
   echo "$BAD_LINES"
   echo "</code></li>"
 fi
-# comments: space after //
-COMMENTS=`grep -rn -E "^[[:space:]]*//[[:alnum:]].*" *`
-if [ $? = 0 ]; then
-  echo "<li>Comments: there should be a space after \"//\", see http://drupal.org/node/1354#inline"
-  echo "<code>"
-  echo "$COMMENTS"
-  echo "</code></li>"
-fi
 # comments not on a separate line
 COMMENTS=`grep -n -E ".*[^[:space:]]+.*[^:]//[^\"']*$" $CODE_FILES`
 if [ $? = 0 ]; then
