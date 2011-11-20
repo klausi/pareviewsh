@@ -153,14 +153,6 @@ if [ $? = 0 ]; then
   echo "$BAD_LINES"
   echo "</code></li>"
 fi
-# comments not on a separate line
-COMMENTS=`grep -n -E ".*[^[:space:]]+.*[^:]//[^\"']*$" $CODE_FILES`
-if [ $? = 0 ]; then
-  echo "<li>Comments should be on a separate line before the code line, see http://drupal.org/node/1354#inline"
-  echo "<code>"
-  echo "$COMMENTS"
-  echo "</code></li>"
-fi
 # files[] not containing classes/interfaces
 INFO_FILES=`grep -E "files\[\]" $NAME.info | grep -o -E "[^[:space:]=]+[[:space:]]*$"`
 if [ $? = 0 ]; then
@@ -201,22 +193,6 @@ if [ -n "$BAD_LINES1" ] || [ -n "$BAD_LINES2" ]; then
   echo "<code>"
   echo "$BAD_LINES1"
   echo "$BAD_LINES2"
-  echo "</code></li>"
-fi
-# space after "if ("
-BAD_LINES=`grep -rnI -E "(if|elseif|foreach|for|switch) \( " *`
-if [ $? = 0 ]; then
-  echo "<li>There should be no space after the opening \"(\" of a control structure, see http://drupal.org/node/318#controlstruct"
-  echo "<code>"
-  echo "$BAD_LINES"
-  echo "</code></li>"
-fi
-# space after "array("
-BAD_LINES=`grep -rnI -E "array\( ." *`
-if [ $? = 0 ]; then
-  echo "<li>There should be no space after the opening \"(\" of an array, see http://drupal.org/node/318#array"
-  echo "<code>"
-  echo "$BAD_LINES"
   echo "</code></li>"
 fi
 # old CVS $Id$ tags
