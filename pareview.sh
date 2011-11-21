@@ -1,7 +1,18 @@
 #!/bin/bash
 
-## You need a Drupal installation + git + drush + coder_review enabled.
+## You need a Drupal installation + git + drupalcs + drush + coder_review enabled.
 ## This script must be run from somewhere in your Drupal installation.
+
+if [[ $# -lt 1 || $1 == "--help" || $1 == "-h" ]]
+then
+  echo "Usage:    `basename $0` GIT-URL [BRANCH]"
+  echo "          `basename $0` DIR-PATH"
+  echo "Examples:"
+  echo "  `basename $0` http://git.drupal.org/project/rules.git"
+  echo "  `basename $0` http://git.drupal.org/project/rules.git 6.x-1.x"
+  echo "  `basename $0` sites/all/modules/rules"
+  exit
+fi
 
 DRUPAL_ROOT=`drush status --pipe drupal_root`
 
