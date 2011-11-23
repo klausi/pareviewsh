@@ -214,14 +214,6 @@ if [ $? = 0 ]; then
   echo "$BAD_LINES"
   echo "</code></li>"
 fi
-# class names should use camelCase
-BAD_LINES=`grep -rn -E "^(class|interface) [^[:space:]]*_" $PHP_FILES`
-if [ $? = 0 ]; then
-  echo "<li>Classes and Interfaces should use UpperCamel naming. See http://drupal.org/node/608152"
-  echo "<code>"
-  echo "$BAD_LINES"
-  echo "</code></li>"
-fi
 # usage of t() in hook_schema()
 if [ -e $NAME.install ]; then
   SCHEMA_LINE_NO=`grep -n -E "_schema\(\) ?\{" $NAME.install | cut -f1 -d:`
