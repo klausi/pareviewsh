@@ -19,7 +19,7 @@ DRUPAL_ROOT=`drush status --pipe drupal_root`
 if [ ! -d $DRUPAL_ROOT/sites/all/modules ]; then
   if [ ! -d $DRUPAL_ROOT/sites/all ]; then
     echo "Directory $DRUPAL_ROOT/sites/all not found, please make sure that you run this script in a Drupal installation. Aborting."
-    exit
+    exit 1
   else
     mkdir $DRUPAL_ROOT/sites/all/modules
   fi
@@ -42,7 +42,7 @@ else
   git clone -q $1 test_candidate &> /dev/null
   if [ $? -ne 0 ]; then
     echo "Git clone failed. Aborting."
-    exit
+    exit 1
   fi
   cd test_candidate
 
@@ -53,7 +53,7 @@ else
     git checkout -q $BRANCH_NAME &> /dev/null
     if [ $? = 1 ]; then
       echo "Git checkout of branch $BRANCH_NAME failed. Aborting."
-      exit
+      exit 1
     fi
   else
     # first try 7.x-?.x
@@ -107,16 +107,12 @@ if [ $? = 0 ]; then
 fi
 
 # run drupalcs
-# check if the command "phpcs" is available
-hash phpcs 2>&-
-if [ $? = 0 ]; then
-  DRUPALCS=`phpcs --standard=DrupalCodingStandard --extensions=php,module,inc,install,test,profile,theme .`
-  if [ $? = 1 ]; then
-    echo "<li><a href=\"http://drupal.org/project/drupalcs\">Drupal Code Sniffer</a> has found some code style issues (please check the <a href=\"http://drupal.org/node/318\">Drupal coding standards</a>):"
-    echo "<code>"
-    echo "$DRUPALCS"
-    echo "</code></li>"
-  fi
+DRUPALCS=`phpcs --standard=DrupalCodingStandard --extensions=php,module,inc,install,test,profile,theme,js .`
+if [ $? = 1 ]; then
+  echo "<li><a href=\"http://drupal.org/project/drupalcs\">Drupal Code Sniffer</a> has found some code style issues (please check the <a href=\"http://drupal.org/node/318\">Drupal coding standards</a>):"
+  echo "<code>"
+  echo "$DRUPALCS"
+  echo "</code></li>"
 fi
 
 # README.txt present?
