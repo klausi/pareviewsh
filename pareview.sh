@@ -182,16 +182,6 @@ for FILE in $CHECK_FILES; do
     echo "</code></li>"
   fi
 done
-# indentation of @param/@return description
-for FILE in $PHP_FILES; do
-  COMMENTS=`grep -n -E -A 1 "(@return|@param)" $FILE | grep -v -E "(@return|@param|^--$)" | grep -v " \*   "`
-  if [ $? = 0 ]; then
-    echo "<li>$FILE: The description on the line after the @param/@return documentation is either missing or not formatted correctly. See http://drupal.org/node/1354#functions"
-    echo "<code>"
-    echo "$COMMENTS"
-    echo "</code></li>"
-  fi
-done
 # bad line endings in files
 BAD_LINES1=`file $FILES | grep "line terminators"`
 # the "file" command does not detect bad line endings in HTML style files, so
