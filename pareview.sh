@@ -129,7 +129,7 @@ fi
 # README.txt present?
 if [ ! -e README.txt ]; then
   echo "<li>README.txt is missing, see the <a href=\"http://drupal.org/node/447604\">guidelines for in-project documentation</a>.</li>"
-else
+fi
 # LICENSE.txt present?
 if [ -e LICENSE.txt ]; then
   echo "<li>Remove LICENSE.txt, it will be added by drupal.org packaging automatically.</li>"
