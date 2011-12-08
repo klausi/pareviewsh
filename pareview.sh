@@ -193,6 +193,18 @@ for FILE in $CHECK_FILES; do
     echo "</code></li>"
   fi
 done
+# bad line endings in files
+BAD_LINES1=`file $FILES | grep "line terminators"`
+# the "file" command does not detect bad line endings in HTML style files, so
+# we run this grep command in addition.
+BAD_LINES2=`grep -rlI $'\r' *`
+if [ -n "$BAD_LINES1" ] || [ -n "$BAD_LINES2" ]; then
+  echo "<li>Bad line endings were found, always use unix style terminators. See http://drupal.org/coding-standards#indenting"
+  echo "<code>"
+  echo "$BAD_LINES1"
+  echo "$BAD_LINES2"
+  echo "</code></li>"
+fi
 # old CVS $Id$ tags
 BAD_LINES=`grep -rnI "\\$Id" *`
 if [ $? = 0 ]; then
