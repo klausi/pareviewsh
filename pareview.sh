@@ -231,19 +231,6 @@ if [ -e $NAME.install ]; then
     fi
   fi
 fi
-# Last character in text files must be '\n'.
-for FILE in $TEXT_FILES; do
-  BAD_LINES=`tail -c 1 $FILE | od -c | grep '\\n'`
-  if [ $? -ne 0 ]; then
-    BAD_FILES=("${BAD_FILES[@]}" "$FILE")
-  fi
-done
-if [ -n "$BAD_FILES" ]; then
-  echo "<li>All text files should end in a single newline (\n). See http://drupal.org/node/318#indenting"
-  echo "<code>"
-  echo "${BAD_FILES[*]}"
-  echo "</code></li>"
-fi
 echo "</ul>"
 
 echo "<i>This automated report was generated with <a href=\"http://drupal.org/sandbox/klausi/1320008\">PAReview.sh</a>, your friendly project application review script. Go and <a href=\"http://drupal.org/project/issues/projectapplications?status=8\">review some other project applications</a>, so we can get back to yours sooner.</i>"
