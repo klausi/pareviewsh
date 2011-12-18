@@ -99,32 +99,7 @@ if [ -z "$PHP_FILES" ]; then
   PHP_FILES="."
   CODE_FILES="."
 fi
-
-# coder is not very good at detecting files in directories.
-if [ -e $NAME.module ]; then
-  CODER_PATH=sites/all/modules/pareview_temp/test_candidate/$NAME.module
-else
-  CODER_PATH=sites/all/modules/pareview_temp/test_candidate
-fi
 echo "<ul>"
-# run coder
-CODER=`drush coder-review no-empty minor comment i18n security sql style $CODER_PATH`
-echo $CODER | grep -q "+"
-if [ $? = 0 ]; then
-  echo "<li>Run <a href=\"http://drupal.org/project/coder\">coder</a> to check your style, some issues were found (please check the <a href=\"http://drupal.org/node/318\">Drupal coding standards</a>):"
-  echo "<code>"
-  echo "$CODER"
-  echo "</code></li>"
-fi
-
-# run drupalcs
-DRUPALCS=`phpcs --standard=DrupalCodingStandard --extensions=php,module,inc,install,test,profile,theme,js,css,info,txt .`
-if [ $? = 1 ]; then
-  echo "<li><a href=\"http://drupal.org/project/drupalcs\">Drupal Code Sniffer</a> has found some code style issues (please check the <a href=\"http://drupal.org/node/318\">Drupal coding standards</a>):"
-  echo "<code>"
-  echo "$DRUPALCS"
-  echo "</code></li>"
-fi
 
 # README.txt present?
 if [ ! -e README.txt ]; then
@@ -225,7 +200,39 @@ if [ -e $NAME.install ]; then
     fi
   fi
 fi
+
+# coder is not very good at detecting files in directories.
+if [ -e $NAME.module ]; then
+  CODER_PATH=sites/all/modules/pareview_temp/test_candidate/$NAME.module
+else
+  CODER_PATH=sites/all/modules/pareview_temp/test_candidate
+fi
+
+# run coder
+CODER=`drush coder-review no-empty minor comment i18n security sql style $CODER_PATH`
+echo $CODER | grep -q "+"
+CODER_ERROR=$?
+if [ $CODER_ERROR = 0 ]; then
+  echo "<li>Run <a href=\"http://drupal.org/project/coder\">coder</a> to check your style, some issues were found (please check the <a href=\"http://drupal.org/node/318\">Drupal coding standards</a>). See attachment.</li>"
+fi
+
+# run drupalcs
+DRUPALCS=`phpcs --standard=DrupalCodingStandard --extensions=php,module,inc,install,test,profile,theme,js,css,info,txt .`
+if [ $? = 1 ]; then
+  echo "<li><a href=\"http://drupal.org/project/drupalcs\">Drupal Code Sniffer</a> has found some code style issues (please check the <a href=\"http://drupal.org/node/318\">Drupal coding standards</a>). See attachment.</li>"
+fi
 echo "</ul>"
 
-echo "<i>This automated report was generated with <a href=\"http://drupal.org/sandbox/klausi/1320008\">PAReview.sh</a>, your friendly project application review script. Go and <a href=\"http://drupal.org/project/issues/projectapplications?status=8\">review some other project applications</a>, so we can get back to yours sooner.</i>"
+echo "<i>This automated report was generated with <a href=\"http://drupal.org/sandbox/klausi/1320008\">PAReview.sh</a>, your friendly project application review script. You can also use the <a href=\"http://ventral.org/pareview\">online version</a> to check your project. Go and <a href=\"http://drupal.org/project/issues/projectapplications?status=8\">review some other project applications</a>, so we can get back to yours sooner.</i>"
 
+if [[ $CODER_ERROR = 0 || -n "$DRUPALCS" ]]; then
+  echo -e "\n\n\n"
+  echo "<code>"
+  if [ $CODER_ERROR = 0 ]; then
+    echo "$CODER"
+  fi
+  if [ -n "$DRUPALCS" ]; then
+    echo "$DRUPALCS"
+  fi
+  echo "</code>"
+fi
