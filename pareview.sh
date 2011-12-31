@@ -140,16 +140,6 @@ if [ $? = 0 ]; then
   echo "$BAD_LINES"
   echo "</code></li>"
 fi
-# files[] not containing classes/interfaces
-INFO_FILES=`grep -E "files\[\]" $NAME.info | grep -o -E "[^[:space:]=]+[[:space:]]*$"`
-if [ $? = 0 ]; then
-  for FILE in $INFO_FILES; do
-    grep -q -E "^(abstract )?(class|interface) " $FILE &> /dev/null
-    if [ $? -ne 0 ]; then
-      echo "<li>$FILE in $NAME.info: It's only necessary to <a href=\"http://drupal.org/node/542202#files\">declare files[] if they declare a class or interface</a>.</li>"
-    fi
-  done
-fi
 # Functions without module prefix.
 # Exclude *.api.php and *.drush.inc files.
 CHECK_FILES=`echo "$PHP_FILES" | grep -v -E "(api\.php|drush\.inc)$"`
