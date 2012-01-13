@@ -172,24 +172,6 @@ if [ $? = 0 ]; then
   echo "$BAD_LINES"
   echo "</code></li>"
 fi
-# usage of t() in hook_schema()
-if [ -e $NAME.install ]; then
-  SCHEMA_LINE_NO=`grep -n -E "_schema\(\) ?\{" $NAME.install | cut -f1 -d:`
-  if [ -n "$SCHEMA_LINE_NO" ]; then
-    # @todo replace hard coded 1000 sed command with something that prints the
-    # rest of a file
-    SCHEMA_CONTENT=`sed -n $SCHEMA_LINE_NO,1000p $NAME.install`
-    SCHEMA_END_NO=`echo "$SCHEMA_CONTENT" | grep -n -E "^\}" | cut -f1 -d: | head -n1`
-    SCHEMA_CONTENT=`echo "$SCHEMA_CONTENT" | sed -n 1,"$SCHEMA_END_NO"p`
-    BAD_LINES=`echo "$SCHEMA_CONTENT" | grep -E "[^[:alnum:]_]t\("`
-    if [ $? = 0 ]; then
-      echo "<li>Do not use t() in hook_schema(), this will only generate overhead for translators."
-      echo "<code>"
-      echo "$BAD_LINES"
-      echo "</code></li>"
-    fi
-  fi
-fi
 
 # coder is not very good at detecting files in directories.
 if [ -e $NAME.module ]; then
