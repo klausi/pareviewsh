@@ -82,6 +82,11 @@ else
     fi
     git checkout -q $BRANCH_NAME &> /dev/null
   fi
+  TAG_CLASH=`git tag -l | grep $BRANCH_NAME`
+  if [ $? = 0 ]; then
+    echo "There is a git tag that has the same name as the branch $BRANCH_NAME. Make sure to remove this tag to avoid confusion."
+    exit 1
+  fi
   echo "Review of the $BRANCH_NAME branch:"
 fi
 
