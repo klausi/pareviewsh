@@ -173,15 +173,8 @@ if [ $? = 0 ]; then
   echo "</code></li>"
 fi
 
-# coder is not very good at detecting files in directories.
-if [ -e $NAME.module ]; then
-  CODER_PATH=sites/all/modules/pareview_temp/test_candidate/$NAME.module
-else
-  CODER_PATH=sites/all/modules/pareview_temp/test_candidate
-fi
-
 # run coder
-CODER=`drush coder-review no-empty minor comment i18n security sql style $CODER_PATH`
+CODER=`drush coder-review no-empty minor comment i18n security sql style .`
 echo $CODER | grep -q "+"
 CODER_ERROR=$?
 if [ $CODER_ERROR = 0 ]; then
