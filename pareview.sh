@@ -187,7 +187,7 @@ if [ $CODER_ERROR = 0 ]; then
 fi
 
 # run drupalcs
-DRUPALCS=`phpcs --standard=DrupalCodingStandard --extensions=php,module,inc,install,test,profile,theme,js,css,info,txt .`
+DRUPALCS=`phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,js,css,info,txt .`
 if [ $? = 1 ]; then
   echo "<li><a href=\"http://drupal.org/project/drupalcs\">Drupal Code Sniffer</a> has found some code style issues (please check the <a href=\"http://drupal.org/node/318\">Drupal coding standards</a>). See attachment.</li>"
 fi
