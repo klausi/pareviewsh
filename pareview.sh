@@ -87,6 +87,15 @@ else
     echo "There is a git tag that has the same name as the branch $BRANCH_NAME. Make sure to remove this tag to avoid confusion."
     exit 1
   fi
+  # Check that no branch patterns with the suffix "dev" are used.
+  # Check also that no tag name patterns are used as branches.
+  BRANCH_ERRORS=`git branch -a | grep -E "([0-9]\.x-[0-9]\.x-dev$|[0-9]\.[0-9]-[0-9]\.x$|[0-9]\.x-[0-9]\.[0-9]$|[0-9]\.[0-9]-[0-9]\.[0-9]$)"`
+  if [ $? = 0 ]; then
+    echo "The following git branches do not match the release branch pattern, you should remove/rename them. See http://drupal.org/node/1015226"
+    echo "<code>"
+    echo "$BRANCH_ERRORS"
+    echo "</code>"
+  fi
   echo "Review of the $BRANCH_NAME branch:"
 fi
 
