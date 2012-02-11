@@ -20,6 +20,11 @@ Requirements:
   - Coder drupalcs reduced with Coder code review enabled:
     http://drupal.org/sandbox/klausi/1339220
 
+The script can be placed anywhere, for convenience you can add a link to one of
+the executable directories in your $PATH, e.g.:
+
+sudo ln -s /path/to/downloaded/pareviewsh/pareview.sh /usr/local/bin
+
 
 Usage (running in a shell)
 --------------------------
