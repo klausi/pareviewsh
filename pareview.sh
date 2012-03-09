@@ -128,8 +128,12 @@ if [ -d translations ]; then
   echo "<li>Remove the translations folder, translations are done on http://localize.drupal.org</li>"
 fi
 # .DS_Store present?
-if [ -e .DS_Store ]; then
-  echo "<li>Remove .DS_Store from your repository.</li>"
+DS_STORE=`find . -name .DS_Store`
+if [ -n "$DS_STORE" ]; then
+  echo "<li>Remove all .DS_Store files from your repository."
+  echo "<code>"
+  echo "$DS_STORE"
+  echo "</code></li>"
 fi
 # "version" in info file?
 grep -q -e "version[[:space:]]*=[[:space:]]*" $NAME.info
