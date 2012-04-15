@@ -128,14 +128,11 @@ if [ -d translations ]; then
   echo "<li>Remove the translations folder, translations are done on http://localize.drupal.org</li>"
 fi
 # .DS_Store present?
-CHECK_FILES=".DS_Store .project"
+CHECK_FILES=".DS_Store .project .settings"
 for FILE in $CHECK_FILES; do
   FOUND=`find . -name $FILE`
   if [ -n "$FOUND" ]; then
-    echo "<li>Remove all $FILE files from your repository."
-    echo "<code>"
-    echo "$FILE"
-    echo "</code></li>"
+    echo "<li>Remove all $FILE files from your repository.</li>"
   fi
 done
 # "version" in info file?
