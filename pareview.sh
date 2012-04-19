@@ -103,7 +103,7 @@ fi
 # if there is more than one info file we take the one with the shortest file name 
 INFO_FILE=`ls *.info | awk '{ print length($0),$0 | "sort -n"}' | head -n1 | grep -o -E "[^[:space:]]*$"`
 NAME=${INFO_FILE%.*}
-PHP_FILES=`find . -not \( -name \*.tpl.php \) -and \( -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.test \)`
+PHP_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.test -or -name \*.profile`
 CODE_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js -or -name \*.test`
 TEXT_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js -or -name \*.test -or -name \*.css -or -name \*.txt -or -name \*.info`
 FILES=`find . -path ./.git -prune -o -type f -print`
@@ -190,6 +190,13 @@ if [ $? = 0 ]; then
   echo "$BAD_LINES"
   echo "</code></li>"
 fi
+# PHP parse error check
+for FILE in $PHP_FILES; do
+  ERRORS=`php -l $FILE`
+  if [ $? -ne 0 ]; then
+    echo "<li>$ERRORS</li>"
+  fi
+done
 
 # run coder
 CODER=`drush coder-review no-empty minor comment i18n security sql style .`
