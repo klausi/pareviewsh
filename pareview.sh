@@ -104,6 +104,7 @@ fi
 INFO_FILE=`ls *.info | awk '{ print length($0),$0 | "sort -n"}' | head -n1 | grep -o -E "[^[:space:]]*$"`
 NAME=${INFO_FILE%.*}
 PHP_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.test -or -name \*.profile`
+NON_TPL_FILES=`find . -not \( -name \*.tpl.php \) -and \( -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.test -name \*.profile \)`
 CODE_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js -or -name \*.test`
 TEXT_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js -or -name \*.test -or -name \*.css -or -name \*.txt -or -name \*.info`
 FILES=`find . -path ./.git -prune -o -type f -print`
@@ -151,7 +152,7 @@ if [ $? = 0 ]; then
   echo "<li>Remove \"datestamp\" from the info file, it will be added by drupal.org packaging automatically.</li>"
 fi
 # ?> PHP delimiter at the end of any file?
-BAD_LINES=`grep -l "^\?>" $PHP_FILES`
+BAD_LINES=`grep -l "^\?>" $NON_TPL_FILES`
 if [ $? = 0 ]; then
   echo "<li>The \"?>\" PHP delimiter at the end of files is discouraged, see http://drupal.org/node/318#phptags"
   echo "<code>"
