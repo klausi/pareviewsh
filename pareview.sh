@@ -193,7 +193,7 @@ if [ $? = 0 ]; then
 fi
 # PHP parse error check
 for FILE in $PHP_FILES; do
-  ERRORS=`php -l $FILE`
+  ERRORS=`php -l $FILE 2>&1`
   if [ $? -ne 0 ]; then
     echo "<li>$ERRORS</li>"
   fi
