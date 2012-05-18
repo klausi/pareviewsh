@@ -198,6 +198,13 @@ for FILE in $PHP_FILES; do
     echo "<li>$ERRORS</li>"
   fi
 done
+# \feff character check at the beginning of files.
+for FILE in $TEXT_FILES; do
+  ERRORS=`grep ^$'\xEF\xBB\xBF' $FILE`
+  if [ $? = 0 ]; then
+    echo "<li>$FILE: the byte order mark at the beginning of UTF-8 files is discouraged, you should remove it.</li>"
+  fi
+done
 
 # run coder
 CODER=`drush coder-review no-empty minor comment i18n security sql style .`
