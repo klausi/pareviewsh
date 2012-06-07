@@ -221,7 +221,7 @@ if [ $? = 1 ]; then
 fi
 echo "</ul>"
 
-echo "<i>This automated report was generated with <a href=\"http://drupal.org/project/pareviewsh\">PAReview.sh</a>, your friendly project application review script. You can also use the <a href=\"http://ventral.org/pareview\">online version</a> to check your project. Get a <a href=\"http://drupal.org/node/1410826\">review bonus</a> and we will come back to your application sooner.</i>"
+echo "<i>This automated report was generated with <a href=\"http://drupal.org/project/pareviewsh\">PAReview.sh</a>, your friendly project application review script. You can also use the <a href=\"http://ventral.org/pareview\">online version</a> to check your project. You have to get a <a href=\"http://drupal.org/node/1410826\">review bonus</a> to get a review from me.</i>"
 
 if [[ $CODER_ERROR = 0 || -n "$DRUPALCS" ]]; then
   echo -e "\n\n\n"
