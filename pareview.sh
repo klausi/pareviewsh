@@ -72,13 +72,10 @@ else
     fi
   fi
   if [ $BRANCH_NAME != "master" ]; then
-    # Check that the master branch is empty.
-    git checkout -q master &> /dev/null
+    # Check that there is no master branch.
+    MASTER_BRANCH=`git branch -a | grep -E "^  remotes/origin/master$"`
     if [ $? = 0 ]; then
-      FILES_IN_MASTER=`ls | grep -v -E "^README.txt$"`
-      if [ $? = 0 ]; then
-        echo "There are still files other than README.txt in the master branch, make sure to remove them. See also step 5 in http://drupal.org/node/1127732"
-      fi
+      echo "There is still a master branch, make sure to remove it. See also step 6 and 7 in http://drupal.org/node/1127732"
     fi
     git checkout -q $BRANCH_NAME &> /dev/null
   fi
