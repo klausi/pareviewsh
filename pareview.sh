@@ -75,7 +75,7 @@ else
     # Check that there is no master branch.
     MASTER_BRANCH=`git branch -a | grep -E "^  remotes/origin/master$"`
     if [ $? = 0 ]; then
-      echo "There is still a master branch, make sure to remove it. See also step 6 and 7 in http://drupal.org/node/1127732"
+      echo "There is still a master branch, make sure to set the correct default branch: http://drupal.org/node/1659588 . Then remove the master branch, see also step 6 and 7 in http://drupal.org/node/1127732"
     fi
     git checkout -q $BRANCH_NAME &> /dev/null
   fi
