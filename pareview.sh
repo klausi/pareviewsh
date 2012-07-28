@@ -110,6 +110,7 @@ if [ -z "$PHP_FILES" ]; then
   # just set it to the current directory.
   PHP_FILES="."
   CODE_FILES="."
+  NON_TPL_FILES="."
 fi
 echo "<ul>"
 
