@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## You need git + phpcs + drush + coder 7.x-2.x.
+## You need git + phpcs + coder 7.x-2.x.
 
 if [[ $# -lt 1 || $1 == "--help" || $1 == "-h" ]]
 then
@@ -191,14 +191,6 @@ for FILE in $TEXT_FILES; do
   fi
 done
 
-# run coder
-CODER=`drush coder-review --no-empty --minor --comment --i18n --security --sql --style .`
-echo $CODER | grep -q "+"
-CODER_ERROR=$?
-if [ $CODER_ERROR = 0 ]; then
-  echo "<li>Run <a href=\"http://drupal.org/project/coder\">coder</a> to check your style, some issues were found (please check the <a href=\"http://drupal.org/node/318\">Drupal coding standards</a>). See attachment.</li>"
-fi
-
 # run drupalcs
 DRUPALCS=`phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,js,css,info,txt .`
 if [ $? = 1 ]; then
@@ -208,12 +200,9 @@ echo "</ul>"
 
 echo "<i>This automated report was generated with <a href=\"http://drupal.org/project/pareviewsh\">PAReview.sh</a>, your friendly project application review script. You can also use the <a href=\"http://ventral.org/pareview\">online version</a> to check your project. You have to get a <a href=\"http://drupal.org/node/1410826\">review bonus</a> to get a review from me.</i>"
 
-if [[ $CODER_ERROR = 0 || -n "$DRUPALCS" ]]; then
+if [[ -n "$DRUPALCS" ]]; then
   echo -e "\n\n\n"
   echo "<code>"
-  if [ $CODER_ERROR = 0 ]; then
-    echo "$CODER"
-  fi
   if [ -n "$DRUPALCS" ]; then
     echo "$DRUPALCS"
   fi
