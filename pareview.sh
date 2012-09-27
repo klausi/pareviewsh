@@ -1,7 +1,6 @@
 #!/bin/bash
 
-## You need a Drupal installation + git + drupalcs + drush + coder_review enabled.
-## This script must be run from somewhere in your Drupal installation.
+## You need git + phpcs + drush + coder 7.x-2.x.
 
 if [[ $# -lt 1 || $1 == "--help" || $1 == "-h" ]]
 then
@@ -14,37 +13,25 @@ then
   exit
 fi
 
-DRUPAL_ROOT=`drush status --pipe drupal_root`
-
-if [ ! -d $DRUPAL_ROOT/sites/all/modules ]; then
-  if [ ! -d $DRUPAL_ROOT/sites/all ]; then
-    echo "Directory $DRUPAL_ROOT/sites/all not found, please make sure that you run this script in a Drupal installation. Aborting."
-    exit 1
-  else
-    mkdir $DRUPAL_ROOT/sites/all/modules
-  fi
-fi
-
 # check if the first argument is valid directory.
 if [ -d $1 ]; then
  cd $1
 # otherwise treat the user input as git URL.
 else
-  if [ -d $DRUPAL_ROOT/sites/all/modules/pareview_temp ]; then
+  if [ -d pareview_temp ]; then
     # clean up test dir
-    rm -rf $DRUPAL_ROOT/sites/all/modules/pareview_temp/*
+    rm -rf pareview_temp
   else
-    mkdir $DRUPAL_ROOT/sites/all/modules/pareview_temp
+    mkdir pareview_temp
   fi
 
-  cd $DRUPAL_ROOT/sites/all/modules/pareview_temp
   # clone project quietly
-  git clone -q $1 test_candidate &> /dev/null
+  git clone -q $1 pareview_temp &> /dev/null
   if [ $? -ne 0 ]; then
     echo "Git clone failed. Aborting."
     exit 1
   fi
-  cd test_candidate
+  cd pareview_temp
 
   # checkout branch
   # check if a branch name was passed on the command line
@@ -205,7 +192,7 @@ for FILE in $TEXT_FILES; do
 done
 
 # run coder
-CODER=`drush coder-review no-empty minor comment i18n security sql style .`
+CODER=`drush coder-review --no-empty --minor --comment --i18n --security --sql --style .`
 echo $CODER | grep -q "+"
 CODER_ERROR=$?
 if [ $CODER_ERROR = 0 ]; then
