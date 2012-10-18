@@ -92,6 +92,7 @@ NON_TPL_FILES=`find . -not \( -name \*.tpl.php \) -and \( -name \*.module -or -n
 CODE_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js -or -name \*.test`
 TEXT_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js -or -name \*.test -or -name \*.css -or -name \*.txt -or -name \*.info`
 FILES=`find . -path ./.git -prune -o -type f -print`
+INFO_FILES=`find . -name \*.info`
 # ensure $PHP_FILES is not empty
 if [ -z "$PHP_FILES" ]; then
   # just set it to the current directory.
@@ -121,21 +122,25 @@ for FILE in $CHECK_FILES; do
     echo "<li>Remove all $FILE files from your repository.</li>"
   fi
 done
-# "version" in info file?
-grep -q -e "version[[:space:]]*=[[:space:]]*" $NAME.info
-if [ $? = 0 ]; then
-  echo "<li>Remove \"version\" from the info file, it will be added by drupal.org packaging automatically.</li>"
-fi
-# "project" in info file?
-grep -q -e "project[[:space:]]*=[[:space:]]*" $NAME.info
-if [ $? = 0 ]; then
-  echo "<li>Remove \"project\" from the info file, it will be added by drupal.org packaging automatically.</li>"
-fi
-# "datestamp" in info file?
-grep -q -e "datestamp[[:space:]]*=[[:space:]]*" $NAME.info
-if [ $? = 0 ]; then
-  echo "<li>Remove \"datestamp\" from the info file, it will be added by drupal.org packaging automatically.</li>"
-fi
+
+for FILE in $INFO_FILES; do
+  # "version" in info file?
+  grep -q -e "version[[:space:]]*=[[:space:]]*" $FILE
+  if [ $? = 0 ]; then
+    echo "<li>Remove \"version\" from the $FILE file, it will be added by drupal.org packaging automatically.</li>"
+  fi
+  # "project" in info file?
+  grep -q -e "project[[:space:]]*=[[:space:]]*" $FILE
+  if [ $? = 0 ]; then
+    echo "<li>Remove \"project\" from the $FILE file, it will be added by drupal.org packaging automatically.</li>"
+  fi
+  # "datestamp" in info file?
+  grep -q -e "datestamp[[:space:]]*=[[:space:]]*" $FILE
+  if [ $? = 0 ]; then
+    echo "<li>Remove \"datestamp\" from the $FILE file, it will be added by drupal.org packaging automatically.</li>"
+  fi
+done
+
 # ?> PHP delimiter at the end of any file?
 BAD_LINES=`grep -l "^\?>" $NON_TPL_FILES`
 if [ $? = 0 ]; then
