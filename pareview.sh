@@ -128,6 +128,14 @@ for FILE in $CHECK_FILES; do
     echo "<li>Remove all $FILE files from your repository.</li>"
   fi
 done
+# Backup files present?
+BACKUP=`find . -name "*~"`
+if [ ! -z "$BACKUP" ]; then
+  echo "<li>Remove all backup files from your repository:"
+  echo "<code>"
+  echo "$BACKUP"
+  echo "</code></li>"
+fi
 
 for FILE in $INFO_FILES; do
   # "version" in info file?
