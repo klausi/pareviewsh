@@ -33,6 +33,12 @@ else
   fi
   cd pareview_temp
 
+  # Check if a default branch is checked out.
+  BRANCH_NAME=`git branch`
+  if [ -z "$BRANCH_NAME" ]; then
+    echo "Git default branch is not set, see <a href=\"http://drupal.org/node/1659588\">the documentation on setting a default branch</a>."
+  fi
+
   # checkout branch
   # check if a branch name was passed on the command line
   if [ $2 ]; then
