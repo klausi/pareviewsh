@@ -215,6 +215,12 @@ DRUPALCS=`phpcs --standard=Drupal --extensions=php,module,inc,install,test,profi
 if [ $? = 1 ]; then
   echo "<li><a href=\"http://drupal.org/project/coder\">Coder Sniffer</a> has found some issues with your code (please check the <a href=\"http://drupal.org/node/318\">Drupal coding standards</a>). See attachment.</li>"
 fi
+
+# Run DrupalSecure
+DRUPALSECURE=`phpcs --standard=DrupalSecure --extensions=php,module,inc,install,test,profile,theme .`
+if [ $? = 1 ]; then
+  echo "<li><a href=\"http://drupal.org/project/coder\">DrupalSecure</a> has found some issues with your code (please check the <a href=\"http://drupal.org/writing-secure-code\">Writing secure core</a> handbook). See attachment.</li>"
+fi
 echo "</ul>"
 
 echo "<i>This automated report was generated with <a href=\"http://drupal.org/project/pareviewsh\">PAReview.sh</a>, your friendly project application review script. You can also use the <a href=\"http://ventral.org/pareview\">online version</a> to check your project. You have to get a <a href=\"http://drupal.org/node/1410826\">review bonus</a> to get a review from me.</i>"
@@ -224,6 +230,15 @@ if [[ -n "$DRUPALCS" ]]; then
   echo "<code>"
   if [ -n "$DRUPALCS" ]; then
     echo "$DRUPALCS"
+  fi
+  echo "</code>"
+fi
+
+if [[ -n "$DRUPALSECURE" ]]; then
+  echo -e "\n\n\n"
+  echo "<code>"
+  if [ -n "$DRUPALSECURE" ]; then
+    echo "$DRUPALSECURE"
   fi
   echo "</code>"
 fi
