@@ -217,11 +217,20 @@ if [ $DRUPALCS_ERRORS = 1 ]; then
   echo "<li><a href=\"http://drupal.org/project/coder\">Coder Sniffer</a> has found some issues with your code (please check the <a href=\"http://drupal.org/node/318\">Drupal coding standards</a>). See attachment.</li>"
 fi
 
+# Run DrupalPractice
+DRUPALPRACTICE=`phpcs --standard=DrupalPractice --extensions=php,module,inc,install,test,profile,theme .`
+if [ $? = 1 ]; then
+  echo "<li><a href=\"http://drupal.org/sandbox/klausi/1952402\">DrupalPractice</a> has found some issues with your code, but could be false positives."
+  echo "<code>"
+  echo "$DRUPALPRACTICE"
+  echo "</code></li>"
+fi
+
 # Run DrupalSecure
 DRUPALSECURE=`phpcs --standard=DrupalSecure --extensions=php,module,inc,install,test,profile,theme .`
 DRUPALSECURE_ERRORS=$?
 if [ $DRUPALSECURE_ERRORS = 1 ]; then
-  echo "<li><a href=\"http://drupal.org/project/coder\">DrupalSecure</a> has found some issues with your code (please check the <a href=\"http://drupal.org/writing-secure-code\">Writing secure core</a> handbook). See attachment.</li>"
+  echo "<li><a href=\"http://drupal.org/sandbox/coltrane/1921926\">DrupalSecure</a> has found some issues with your code (please check the <a href=\"http://drupal.org/writing-secure-code\">Writing secure core</a> handbook). See attachment.</li>"
 fi
 echo "</ul>"
 
