@@ -246,7 +246,7 @@ fi
 
 echo "</ul>"
 
-echo "<i>This automated report was generated with <a href=\"http://drupal.org/project/pareviewsh\">PAReview.sh</a>, your friendly project application review script. You can also use the <a href=\"http://ventral.org/pareview\">online version</a> to check your project. You have to get a <a href=\"http://drupal.org/node/1975228\">review bonus</a> to get a review from me.</i>"
+echo "<i>This automated report was generated with <a href=\"http://drupal.org/project/pareviewsh\">PAReview.sh</a>, your friendly project application review script. You can also use the <a href=\"http://pareview.sh\">online version</a> to check your project. You have to get a <a href=\"http://drupal.org/node/1975228\">review bonus</a> to get a review from me.</i>"
 
 if [[ $DRUPALCS_ERRORS = 1 ]]; then
   echo -e "\n\n\n"
