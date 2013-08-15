@@ -229,7 +229,7 @@ fi
 # Run DrupalPractice
 DRUPALPRACTICE=`phpcs --standard=DrupalPractice --extensions=php,module,inc,install,test,profile,theme .`
 if [ $? = 1 ]; then
-  echo "<li><a href=\"http://drupal.org/sandbox/klausi/1952402\">DrupalPractice</a> has found some issues with your code, but could be false positives."
+  echo "<li><a href=\"http://drupal.org/project/drupalpractice\">DrupalPractice</a> has found some issues with your code, but could be false positives."
   echo "<code>"
   echo "$DRUPALPRACTICE"
   echo "</code></li>"
