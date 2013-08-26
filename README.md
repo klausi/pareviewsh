@@ -11,13 +11,12 @@ Intallation
 -----------
 
 Requirements:
-  - A Bash shell environment (tested on Ubuntu, should also work on Macs)
-  - A Drupal installation (tested with Drupal 7)
-  - Git: http://git-scm.com
-  - Drupal Code Sniffer: http://drupal.org/project/drupalcs
-  - Drush: http://drupal.org/project/drush
-  - Coder drupalcs reduced with Coder code review enabled:
-    http://drupal.org/sandbox/klausi/1339220
+- A Bash shell environment (tested on Ubuntu, should also work on Macs)
+- Git
+- [Coder 7.x-2.x](http://drupal.org/project/coder) + [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer), see [installation instructions](https://drupal.org/node/1419988)
+- [DrupalPractice](https://github.com/klausi/drupalpractice)
+- [DrupalSecure](http://drupal.org/sandbox/coltrane/1921926)
+
 
 The script can be placed anywhere, for convenience you can add a link to one of
 the executable directories in your $PATH, e.g.:
