@@ -28,10 +28,11 @@ the executable directories in your $PATH, e.g.:
 Usage (running in a shell)
 --------------------------
 
-$> pareview.sh GIT-URL [BRANCH]
-$> pareview.sh DIR-PATH
+    $> pareview.sh GIT-URL [BRANCH]
+    $> pareview.sh DIR-PATH
 
 Examples:
-$> pareview.sh http://git.drupal.org/project/rules.git
-$> pareview.sh http://git.drupal.org/project/rules.git 6.x-1.x
-$> pareview.sh sites/all/modules/rules
+    
+    $> pareview.sh http://git.drupal.org/project/rules.git
+    $> pareview.sh http://git.drupal.org/project/rules.git 6.x-1.x
+    $> pareview.sh sites/all/modules/rules
