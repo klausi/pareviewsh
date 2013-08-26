@@ -1,12 +1,11 @@
--------------------------------------------------------------------------------
-                            PAReview.sh
--------------------------------------------------------------------------------
+PAReview.sh
+===========
 
 Simple Bash script to automatically review Drupal.org project applications. It
-takes a Git repository URL as argument, clones the code in
-sites/all/modules/pareview_temp and runs some checks. Alternatively it takes a
-path to a module/theme project and checks that. The output is suitable for a
-comment in the Project Applications issue queue.
+takes a Git repository URL as argument, clones the code in a pareview_temp
+folder and runs some checks. Alternatively it takes a path to a module/theme
+project and checks that. The output is suitable for a comment in the Project
+Applications issue queue.
 
 Intallation
 -----------
@@ -23,13 +22,12 @@ Requirements:
 The script can be placed anywhere, for convenience you can add a link to one of
 the executable directories in your $PATH, e.g.:
 
-sudo ln -s /path/to/downloaded/pareviewsh/pareview.sh /usr/local/bin
+    sudo ln -s /path/to/downloaded/pareviewsh/pareview.sh /usr/local/bin
 
 
 Usage (running in a shell)
 --------------------------
 
-$> cd /path/to/drupal
 $> pareview.sh GIT-URL [BRANCH]
 $> pareview.sh DIR-PATH
 
