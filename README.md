@@ -7,6 +7,10 @@ folder and runs some checks. Alternatively it takes a path to a module/theme
 project and checks that. The output is suitable for a comment in the Project
 Applications issue queue.
 
+Online version
+--------------
+http://pareview.sh
+
 Intallation
 -----------
 
