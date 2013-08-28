@@ -109,8 +109,8 @@ fi
 echo "<ul>"
 
 # README.txt present?
-if [ ! -e README.txt ]; then
-  echo "<li>README.txt is missing, see the <a href=\"http://drupal.org/node/447604\">guidelines for in-project documentation</a>.</li>"
+if [ ! -e README.txt ] && [ ! -e README.md ] ; then
+  echo "<li>README.txt or README.md is missing, see the <a href=\"http://drupal.org/node/447604\">guidelines for in-project documentation</a>.</li>"
 fi
 # LICENSE.txt present?
 if [ -e LICENSE.txt ]; then
