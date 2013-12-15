@@ -20,6 +20,7 @@ Requirements:
 - [Coder 7.x-2.x](http://drupal.org/project/coder) + [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer), see [installation instructions](https://drupal.org/node/1419988)
 - [DrupalPractice](https://github.com/klausi/drupalpractice)
 - [DrupalSecure](http://drupal.org/sandbox/coltrane/1921926)
+- [Codespell](https://github.com/lucasdemarchi/codespell)
 
 
 The script can be placed anywhere, for convenience you can add a link to one of
