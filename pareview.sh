@@ -244,6 +244,20 @@ if [ $? = 1 ]; then
   echo "</code></li>"
 fi
 
+# Check if codespell is installed.
+hash codespell 2>/dev/null
+if [ $? = 0 ]; then
+  # Run codespell.
+  SPELLING=`codespell -d . 2>/dev/null`
+  LINES=`echo $SPELLING | wc -l`
+  if [ $LINES -gt 0 ]; then
+    echo "<li><a href=\"https://github.com/lucasdemarchi/codespell\">Codespell</a> has found some spelling errors in your code."
+    echo "<code>"
+    echo "$SPELLING"
+    echo "</code></li>"
+  fi
+fi
+
 echo "</ul>"
 
 echo "<i>This automated report was generated with <a href=\"http://drupal.org/project/pareviewsh\">PAReview.sh</a>, your friendly project application review script. You can also use the <a href=\"http://pareview.sh\">online version</a> to check your project. You have to get a <a href=\"http://drupal.org/node/1975228\">review bonus</a> to get a review from me.</i>"
