@@ -249,8 +249,7 @@ hash codespell 2>/dev/null
 if [ $? = 0 ]; then
   # Run codespell.
   SPELLING=`codespell -d . 2>/dev/null`
-  LINES=`echo $SPELLING | wc -l`
-  if [ $LINES -gt 0 ]; then
+  if [ ! -z "$SPELLING" ]; then
     echo "<li><a href=\"https://github.com/lucasdemarchi/codespell\">Codespell</a> has found some spelling errors in your code."
     echo "<code>"
     echo "$SPELLING"
