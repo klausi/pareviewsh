@@ -40,3 +40,27 @@ Examples:
     $> pareview.sh http://git.drupal.org/project/rules.git
     $> pareview.sh http://git.drupal.org/project/rules.git 6.x-1.x
     $> pareview.sh sites/all/modules/rules
+
+
+Bleeding edge installation of depedencies
+-----------------------------------------
+
+If you always want to work with the newest versions of all PHPCS Standards
+involved using Git clones (replace /home/klausi/workspace with your desired
+working directory):
+
+    cd /home/klausi/workspace
+    git clone --branch phpcs-fixer https://github.com/squizlabs/PHP_CodeSniffer.git
+    git clone --branch 8.x-2.x http://git.drupal.org/project/coder.git
+    git clone --branch 8.x-1.x http://git.drupal.org/project/drupalpractice.git
+    git clone --branch master http://git.drupal.org/sandbox/coltrane/1921926.git drupalsecure
+
+Then link the standards into PHPCS:
+
+    ln -s /home/klausi/workspace/coder/coder_sniffer/Drupal /home/klausi/workspace/PHP_CodeSniffer/CodeSniffer/Standards
+    ln -s /home/klausi/workspace/drupalpractice/DrupalPractice /home/klausi/workspace/PHP_CodeSniffer/CodeSniffer/Standards
+    ln -s /home/klausi/workspace/drupalsecure/DrupalSecure /home/klausi/workspace/PHP_CodeSniffer/CodeSniffer/Standards
+
+Register the phpcs command globally:
+
+    sudo ln -s /home/klausi/workspace/PHP_CodeSniffer/scripts/phpcs /usr/local/bin
