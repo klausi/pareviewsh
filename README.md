@@ -54,6 +54,7 @@ working directory):
     git clone --branch 8.x-2.x http://git.drupal.org/project/coder.git
     git clone --branch 8.x-1.x http://git.drupal.org/project/drupalpractice.git
     git clone --branch master http://git.drupal.org/sandbox/coltrane/1921926.git drupalsecure
+    git clone --branch master https://github.com/lucasdemarchi/codespell.git
 
 Then link the standards into PHPCS:
 
@@ -64,3 +65,7 @@ Then link the standards into PHPCS:
 Register the phpcs command globally:
 
     sudo ln -s /home/klausi/workspace/PHP_CodeSniffer/scripts/phpcs /usr/local/bin
+
+Register the codespell command globally:
+
+    sudo ln -s /home/klausi/workspace/codespell/codespell.py /usr/local/bin
