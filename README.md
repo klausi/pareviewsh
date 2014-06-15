@@ -68,4 +68,4 @@ Register the phpcs command globally:
 
 Register the codespell command globally:
 
-    sudo ln -s /home/klausi/workspace/codespell/codespell.py /usr/local/bin
+    sudo ln -s /home/klausi/workspace/codespell/codespell.py /usr/local/bin/codespell
