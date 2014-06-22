@@ -36,7 +36,7 @@ else
   # Check if a default branch is checked out.
   BRANCH_NAME=`git branch`
   if [ -z "$BRANCH_NAME" ]; then
-    echo "Git default branch is not set, see <a href=\"http://drupal.org/node/1659588\">the documentation on setting a default branch</a>."
+    echo "Git default branch is not set, see <a href=\"https://www.drupal.org/node/1659588\">the documentation on setting a default branch</a>."
   fi
 
   # checkout branch
@@ -56,14 +56,14 @@ else
       git checkout -q $BRANCH_NAME &> /dev/null
     else
       BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
-      echo "It appears you are working in the \"$BRANCH_NAME\" branch in git. You should really be working in a version specific branch. The most direct documentation on this is <a href=\"http://drupal.org/node/1127732\">Moving from a master branch to a version branch.</a> For additional resources please see the documentation about <a href=\"http://drupal.org/node/1015226\">release naming conventions</a> and <a href=\"http://drupal.org/node/1066342\">creating a branch in git</a>."
+      echo "It appears you are working in the \"$BRANCH_NAME\" branch in git. You should really be working in a version specific branch. The most direct documentation on this is <a href=\"https://www.drupal.org/node/1127732\">Moving from a master branch to a version branch.</a> For additional resources please see the documentation about <a href=\"https://www.drupal.org/node/1015226\">release naming conventions</a> and <a href=\"https://www.drupal.org/node/1066342\">creating a branch in git</a>."
     fi
   fi
   if [ $BRANCH_NAME != "master" ]; then
     # Check that there is no master branch.
     MASTER_BRANCH=`git branch -a | grep -E "^  remotes/origin/master$"`
     if [ $? = 0 ]; then
-      echo "There is still a master branch, make sure to set the correct default branch: http://drupal.org/node/1659588 . Then remove the master branch, see also step 6 and 7 in http://drupal.org/node/1127732"
+      echo "There is still a master branch, make sure to set the correct default branch: https://www.drupal.org/node/1659588 . Then remove the master branch, see also step 6 and 7 in https://www.drupal.org/node/1127732"
     fi
     git checkout -q $BRANCH_NAME &> /dev/null
   fi
@@ -76,7 +76,7 @@ else
   # Check also that no tag name patterns are used as branches.
   BRANCH_ERRORS=`git branch -a | grep -E "([0-9]\.x-[0-9]\.x-dev$|[0-9]\.[0-9]-[0-9]\.x$|[0-9]\.x-[0-9]\.[0-9]$|[0-9]\.[0-9]-[0-9]\.[0-9]$)"`
   if [ $? = 0 ]; then
-    echo "The following git branches do not match the release branch pattern, you should remove/rename them. See http://drupal.org/node/1015226"
+    echo "The following git branches do not match the release branch pattern, you should remove/rename them. See https://www.drupal.org/node/1015226"
     echo "<code>"
     echo "$BRANCH_ERRORS"
     echo "</code>"
@@ -105,7 +105,7 @@ echo "<ul>"
 
 # README.txt present?
 if [ ! -e README.txt ] && [ ! -e README.md ] ; then
-  echo "<li>README.txt or README.md is missing, see the <a href=\"http://drupal.org/node/447604\">guidelines for in-project documentation</a>.</li>"
+  echo "<li>README.txt or README.md is missing, see the <a href=\"https://www.drupal.org/node/447604\">guidelines for in-project documentation</a>.</li>"
 fi
 # LICENSE.txt present?
 if [ -e LICENSE.txt ]; then
@@ -153,7 +153,7 @@ done
 # ?> PHP delimiter at the end of any file?
 BAD_LINES=`grep -l "^\?>" $NON_TPL_FILES`
 if [ $? = 0 ]; then
-  echo "<li>The \"?>\" PHP delimiter at the end of files is discouraged, see http://drupal.org/node/318#phptags"
+  echo "<li>The \"?>\" PHP delimiter at the end of files is discouraged, see https://www.drupal.org/node/318#phptags"
   echo "<code>"
   echo "$BAD_LINES"
   echo "</code></li>"
@@ -164,7 +164,7 @@ CHECK_FILES=`echo "$PHP_FILES" | grep -v -E "(api\.php|drush\.inc)$"`
 for FILE in $CHECK_FILES; do
   FUNCTIONS=`grep -E "^function [[:alnum:]_]+.*\(.*\) \{" $FILE | grep -v -E "^function (_?$NAME|theme|template|phptemplate)"`
   if [ $? = 0 ]; then
-    echo "<li>$FILE: all functions should be prefixed with your module/theme name to avoid name clashes. See http://drupal.org/node/318#naming"
+    echo "<li>$FILE: all functions should be prefixed with your module/theme name to avoid name clashes. See https://www.drupal.org/node/318#naming"
     echo "<code>"
     echo "$FUNCTIONS"
     echo "</code></li>"
@@ -176,7 +176,7 @@ BAD_LINES1=`file $FILES | grep "line terminators"`
 # we run this grep command in addition.
 BAD_LINES2=`grep -rlI $'\r' *`
 if [ -n "$BAD_LINES1" ] || [ -n "$BAD_LINES2" ]; then
-  echo "<li>Bad line endings were found, always use unix style terminators. See http://drupal.org/coding-standards#indenting"
+  echo "<li>Bad line endings were found, always use unix style terminators. See https://www.drupal.org/coding-standards#indenting"
   echo "<code>"
   echo "$BAD_LINES1"
   echo "$BAD_LINES2"
@@ -211,9 +211,9 @@ DRUPALCS_ERRORS=$?
 if [ $DRUPALCS_ERRORS = 1 ]; then
   LINES=`echo "$DRUPALCS" | wc -l`
   if [ $LINES -gt 20 ]; then
-    echo "<li><a href=\"http://drupal.org/project/coder\">Coder Sniffer</a> has found some issues with your code (please check the <a href=\"http://drupal.org/node/318\">Drupal coding standards</a>). See attachment.</li>"
+    echo "<li><a href=\"https://www.drupal.org/project/coder\">Coder Sniffer</a> has found some issues with your code (please check the <a href=\"https://www.drupal.org/node/318\">Drupal coding standards</a>). See attachment.</li>"
   else
-    echo "<li><a href=\"http://drupal.org/project/coder\">Coder Sniffer</a> has found some issues with your code (please check the <a href=\"http://drupal.org/node/318\">Drupal coding standards</a>)."
+    echo "<li><a href=\"https://www.drupal.org/project/coder\">Coder Sniffer</a> has found some issues with your code (please check the <a href=\"https://www.drupal.org/node/318\">Drupal coding standards</a>)."
     echo "<code>"
     echo "$DRUPALCS"
     echo "</code></li>"
@@ -224,7 +224,7 @@ fi
 # Run DrupalPractice
 DRUPALPRACTICE=`phpcs --standard=DrupalPractice --extensions=php,module,inc,install,test,profile,theme .`
 if [ $? = 1 ]; then
-  echo "<li><a href=\"http://drupal.org/project/drupalpractice\">DrupalPractice</a> has found some issues with your code, but could be false positives."
+  echo "<li><a href=\"https://www.drupal.org/project/drupalpractice\">DrupalPractice</a> has found some issues with your code, but could be false positives."
   echo "<code>"
   echo "$DRUPALPRACTICE"
   echo "</code></li>"
@@ -233,7 +233,7 @@ fi
 # Run DrupalSecure
 DRUPALSECURE=`phpcs --standard=DrupalSecure --extensions=php,module,inc,install,test,profile,theme .`
 if [ $? = 1 ]; then
-  echo "<li><a href=\"http://drupal.org/sandbox/coltrane/1921926\">DrupalSecure</a> has found some issues with your code (please check the <a href=\"http://drupal.org/writing-secure-code\">Writing secure core</a> handbook)."
+  echo "<li><a href=\"https://www.drupal.org/sandbox/coltrane/1921926\">DrupalSecure</a> has found some issues with your code (please check the <a href=\"https://www.drupal.org/writing-secure-code\">Writing secure core</a> handbook)."
   echo "<code>"
   echo "$DRUPALSECURE"
   echo "</code></li>"
@@ -254,7 +254,7 @@ fi
 
 echo "</ul>"
 
-echo "<i>This automated report was generated with <a href=\"http://drupal.org/project/pareviewsh\">PAReview.sh</a>, your friendly project application review script. You can also use the <a href=\"http://pareview.sh\">online version</a> to check your project. You have to get a <a href=\"http://drupal.org/node/1975228\">review bonus</a> to get a review from me.</i>"
+echo "<i>This automated report was generated with <a href=\"https://www.drupal.org/project/pareviewsh\">PAReview.sh</a>, your friendly project application review script. You can also use the <a href=\"http://pareview.sh\">online version</a> to check your project. You have to get a <a href=\"https://www.drupal.org/node/1975228\">review bonus</a> to get a review from me.</i>"
 
 if [[ $DRUPALCS_ERRORS = 1 ]]; then
   echo -e "\n\n\n"
