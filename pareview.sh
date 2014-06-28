@@ -111,6 +111,9 @@ fi
 if [ -e LICENSE.txt ]; then
   echo "<li>Remove LICENSE.txt, it will be added by drupal.org packaging automatically.</li>"
 fi
+if [ -e LICENSE ]; then
+  echo "<li>Remove the LICENSE, drupal.org packaging will add a LICENSE.txt file automatically.</li>"
+fi
 # translations folder present?
 if [ -d translations ]; then
   echo "<li>Remove the translations folder, translations are done on http://localize.drupal.org</li>"
