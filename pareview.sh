@@ -260,7 +260,7 @@ D7_TEST_FILES=`find . -name \*\.test`
 D8_TEST_DIRS=`find . -type d \( -iname test -or -iname tests \)`
 # Do not throw this error for themes, they usually don't have tests.
 if [ -z "$D7_TEST_FILES" ] && [ -z "$D8_TEST_DIRS" ] && [ ! -e template.php ] && [ ! -e *.theme ] ; then
-  echo "<li>No automated test cases were found, did you consider writing <a href=\"https://www.drupal.org/simpletest\">Simpletests</a> or <a href=\"https://www.drupal.org/phpunit\">PHPUnit tests</a>?</li>"
+  echo "<li>No automated test cases were found, did you consider writing <a href=\"https://www.drupal.org/simpletest\">Simpletests</a> or <a href=\"https://www.drupal.org/phpunit\">PHPUnit tests</a>? This is not a requirement but encouraged for professional software development.</li>"
 fi
 
 echo "</ul>"
