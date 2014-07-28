@@ -81,7 +81,8 @@ else
     echo "$BRANCH_ERRORS"
     echo "</code>"
   fi
-  echo "Review of the $BRANCH_NAME branch:"
+  BRANCH_VERSION=`git rev-parse --short HEAD`
+  echo "Review of the $BRANCH_NAME branch (commit $BRANCH_VERSION):"
 fi
 
 # get module/theme name
