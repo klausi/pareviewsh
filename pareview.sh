@@ -119,7 +119,7 @@ if [ -d translations ]; then
   echo "<li>Remove the translations folder, translations are done on http://localize.drupal.org</li>"
 fi
 # .DS_Store present?
-CHECK_FILES=".DS_Store Gemfile.lock .idea node_modules .project .sass-cache .settings"
+CHECK_FILES=".DS_Store .idea node_modules .project .sass-cache .settings vendor"
 for FILE in $CHECK_FILES; do
   FOUND=`find . -name $FILE`
   if [ -n "$FOUND" ]; then
