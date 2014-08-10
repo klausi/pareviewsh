@@ -85,10 +85,11 @@ else
   echo "Review of the $BRANCH_NAME branch (commit $BRANCH_VERSION):"
 fi
 
-# get module/theme name
-# if there is more than one info file we take the one with the shortest file name 
-INFO_FILE=`ls *.info | awk '{ print length($0),$0 | "sort -n"}' | head -n1 | grep -o -E "[^[:space:]]*$"`
-NAME=${INFO_FILE%.*}
+# Get module/theme name.
+# If there is more than one info file we take the one with the shortest file
+# name. We look for *.info (Drupal 7) and *.info.yml (Drupal 8) files.
+INFO_FILE=`ls | grep '\.info\(\.yml\)\?$' | awk '{ print length($0),$0 | "sort -n"}' | head -n1 | grep -o -E "[^[:space:]]*$"`
+NAME=${INFO_FILE%%.*}
 PHP_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.test -or -name \*.profile`
 NON_TPL_FILES=`find . -not \( -name \*.tpl.php \) -and \( -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.test -name \*.profile \)`
 CODE_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js -or -name \*.test`
