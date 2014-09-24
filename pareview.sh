@@ -55,7 +55,7 @@ else
     if [ -n "$BRANCH_NAME" ]; then
       git checkout -q $BRANCH_NAME &> /dev/null
     else
-      BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
+      BRANCH_NAME=`git branch -a | sed -e 's/ *remotes\/origin\///p' | tail -n1`
       echo "It appears you are working in the \"$BRANCH_NAME\" branch in git. You should really be working in a version specific branch. The most direct documentation on this is <a href=\"https://www.drupal.org/node/1127732\">Moving from a master branch to a version branch.</a> For additional resources please see the documentation about <a href=\"https://www.drupal.org/node/1015226\">release naming conventions</a> and <a href=\"https://www.drupal.org/node/1066342\">creating a branch in git</a>."
     fi
   fi
