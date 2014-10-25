@@ -33,6 +33,13 @@ else
   fi
   cd pareview_temp
 
+  # Check if the repository is empty.
+  BRANCH_EXISTS=`git branch -a`
+  if [ -z "$BRANCH_EXISTS" ]; then
+    echo "Git repository is empty. Aborting."
+    exit 1
+  fi
+
   # Check if a default branch is checked out.
   BRANCH_NAME=`git branch`
   if [ -z "$BRANCH_NAME" ]; then
