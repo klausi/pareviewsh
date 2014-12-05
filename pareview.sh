@@ -40,10 +40,12 @@ else
     exit 1
   fi
 
+  GIT_ERRORS=()
+
   # Check if a default branch is checked out.
   BRANCH_NAME=`git branch`
   if [ -z "$BRANCH_NAME" ]; then
-    echo "Git default branch is not set, see <a href=\"https://www.drupal.org/node/1659588\">the documentation on setting a default branch</a>."
+    GIT_ERRORS+=("Git default branch is not set, see <a href=\"https://www.drupal.org/node/1659588\">the documentation on setting a default branch</a>.")
   fi
 
   # checkout branch
@@ -63,14 +65,14 @@ else
       git checkout -q $BRANCH_NAME &> /dev/null
     else
       BRANCH_NAME=`git branch -a | sed -e 's/ *remotes\/origin\///p' | tail -n1`
-      echo "It appears you are working in the \"$BRANCH_NAME\" branch in git. You should really be working in a version specific branch. The most direct documentation on this is <a href=\"https://www.drupal.org/node/1127732\">Moving from a master branch to a version branch.</a> For additional resources please see the documentation about <a href=\"https://www.drupal.org/node/1015226\">release naming conventions</a> and <a href=\"https://www.drupal.org/node/1066342\">creating a branch in git</a>."
+      GIT_ERRORS+=("It appears you are working in the \"$BRANCH_NAME\" branch in git. You should really be working in a version specific branch. The most direct documentation on this is <a href=\"https://www.drupal.org/node/1127732\">Moving from a master branch to a version branch.</a> For additional resources please see the documentation about <a href=\"https://www.drupal.org/node/1015226\">release naming conventions</a> and <a href=\"https://www.drupal.org/node/1066342\">creating a branch in git</a>.")
     fi
   fi
   if [ $BRANCH_NAME != "master" ]; then
     # Check that there is no master branch.
     MASTER_BRANCH=`git branch -a | grep -E "^  remotes/origin/master$"`
     if [ $? = 0 ]; then
-      echo "There is still a master branch, make sure to set the correct default branch: https://www.drupal.org/node/1659588 . Then remove the master branch, see also step 6 and 7 in https://www.drupal.org/node/1127732"
+      GIT_ERRORS+=("There is still a master branch, make sure to set the correct default branch: https://www.drupal.org/node/1659588 . Then remove the master branch, see also step 6 and 7 in https://www.drupal.org/node/1127732")
     fi
     git checkout -q $BRANCH_NAME &> /dev/null
   fi
@@ -83,16 +85,22 @@ else
   # Check also that no tag name patterns are used as branches.
   BRANCH_ERRORS=`git branch -a | grep -E "([0-9]\.x-[0-9]\.x-dev$|[0-9]\.[0-9]-[0-9]\.x$|[0-9]\.x-[0-9]\.[0-9]$|[0-9]\.[0-9]-[0-9]\.[0-9]$)"`
   if [ $? = 0 ]; then
-    echo "The following git branches do not match the release branch pattern, you should remove/rename them. See https://www.drupal.org/node/1015226"
-    echo "<code>"
-    echo "$BRANCH_ERRORS"
-    echo "</code>"
+    GIT_ERRORS+=("The following git branches do not match the release branch pattern, you should remove/rename them. See https://www.drupal.org/node/1015226\n<code>\n$BRANCH_ERRORS\n</code>")
   fi
 
   # Check that the last commit message is not just one word.
   COMMIT_MESSAGE=`git log -1 --pretty=%B`
   if [[ $COMMIT_MESSAGE != *" "* ]]; then
-    echo "The last commit message is just one word, you should provide a meaningful short summary what you changed. See https://www.drupal.org/node/52287"
+    GIT_ERRORS+=("The last commit message is just one word, you should provide a meaningful short summary what you changed. See https://www.drupal.org/node/52287")
+  fi
+
+  if [ ${#GIT_ERRORS[@]} -gt 0 ]; then
+    echo "Git errors:"
+    echo "<ul>"
+    for ((i = 0; i < ${#GIT_ERRORS[@]}; i++)); do
+      echo -e "<li>${GIT_ERRORS[i]}</li>"
+    done
+    echo "</ul>"
   fi
 
   BRANCH_VERSION=`git rev-parse --short HEAD`
