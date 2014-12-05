@@ -88,6 +88,13 @@ else
     echo "$BRANCH_ERRORS"
     echo "</code>"
   fi
+
+  # Check that the last commit message is not just one word.
+  COMMIT_MESSAGE=`git log -1 --pretty=%B`
+  if [[ $COMMIT_MESSAGE != *" "* ]]; then
+    echo "The last commit message is just one word, you should provide a meaningful short summary what you changed. See https://www.drupal.org/node/52287"
+  fi
+
   BRANCH_VERSION=`git rev-parse --short HEAD`
   echo "Review of the $BRANCH_NAME branch (commit $BRANCH_VERSION):"
 fi
