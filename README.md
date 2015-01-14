@@ -17,8 +17,7 @@ Intallation
 Requirements:
 - A Bash shell environment (tested on Ubuntu, should also work on Macs)
 - Git
-- [Coder 7.x-2.x](http://drupal.org/project/coder) + [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer), see [installation instructions](https://drupal.org/node/1419988)
-- [DrupalPractice](https://github.com/klausi/drupalpractice)
+- [Coder 8.x-2.x](http://drupal.org/project/coder) + [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer), see [installation instructions](https://drupal.org/node/1419988)
 - [DrupalSecure](http://drupal.org/sandbox/coltrane/1921926)
 - [Codespell](https://github.com/lucasdemarchi/codespell)
 
@@ -50,16 +49,15 @@ involved using Git clones (replace /home/klausi/workspace with your desired
 working directory):
 
     cd /home/klausi/workspace
-    git clone --branch phpcs-fixer https://github.com/squizlabs/PHP_CodeSniffer.git
+    git clone --branch master https://github.com/squizlabs/PHP_CodeSniffer.git
     git clone --branch 8.x-2.x http://git.drupal.org/project/coder.git
-    git clone --branch 8.x-1.x http://git.drupal.org/project/drupalpractice.git
     git clone --branch master http://git.drupal.org/sandbox/coltrane/1921926.git drupalsecure
     git clone --branch master https://github.com/lucasdemarchi/codespell.git
 
 Then link the standards into PHPCS:
 
     ln -s /home/klausi/workspace/coder/coder_sniffer/Drupal /home/klausi/workspace/PHP_CodeSniffer/CodeSniffer/Standards
-    ln -s /home/klausi/workspace/drupalpractice/DrupalPractice /home/klausi/workspace/PHP_CodeSniffer/CodeSniffer/Standards
+    ln -s /home/klausi/workspace/coder/coder_sniffer/DrupalPractice /home/klausi/workspace/PHP_CodeSniffer/CodeSniffer/Standards
     ln -s /home/klausi/workspace/drupalsecure/DrupalSecure /home/klausi/workspace/PHP_CodeSniffer/CodeSniffer/Standards
 
 Register the phpcs command globally:
