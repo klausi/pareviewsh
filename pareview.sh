@@ -258,8 +258,8 @@ if [ $? = 1 ]; then
   echo "</code></li>"
 fi
 
-# Run DrupalSecure
-DRUPALSECURE=`phpcs --standard=DrupalSecure --report-width=75 --extensions=php,module,inc,install,test,profile,theme .`
+# Run DrupalSecure and ignore stderr because it sometimes throws PHP warnings.
+DRUPALSECURE=`phpcs --standard=DrupalSecure --report-width=75 --extensions=php,module,inc,install,test,profile,theme . 2> /dev/null`
 if [ $? = 1 ]; then
   echo "<li><a href=\"https://www.drupal.org/sandbox/coltrane/1921926\">DrupalSecure</a> has found some issues with your code (please check the <a href=\"https://www.drupal.org/writing-secure-code\">Writing secure core</a> handbook)."
   echo "<code>"
