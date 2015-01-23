@@ -179,7 +179,7 @@ for FILE in $INFO_FILES; do
 done
 
 # ?> PHP delimiter at the end of any file?
-BAD_LINES=`grep -l "^\?>" $NON_TPL_FILES`
+BAD_LINES=`grep -l "^\?>" $NON_TPL_FILES 2> /dev/null`
 if [ $? = 0 ]; then
   echo "<li>The \"?>\" PHP delimiter at the end of files is discouraged, see https://www.drupal.org/node/318#phptags"
   echo "<code>"
@@ -190,7 +190,7 @@ fi
 # Exclude *.api.php and *.drush.inc files.
 CHECK_FILES=`echo "$PHP_FILES" | grep -v -E "(api\.php|drush\.inc)$"`
 for FILE in $CHECK_FILES; do
-  FUNCTIONS=`grep -E "^function [[:alnum:]_]+.*\(.*\) \{" $FILE | grep -v -E "^function (_?$NAME|theme|template|phptemplate)"`
+  FUNCTIONS=`grep -E "^function [[:alnum:]_]+.*\(.*\) \{" $FILE 2> /dev/null | grep -v -E "^function (_?$NAME|theme|template|phptemplate)"`
   if [ $? = 0 ]; then
     echo "<li>$FILE: all functions should be prefixed with your module/theme name to avoid name clashes. See https://www.drupal.org/node/318#naming"
     echo "<code>"
