@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /usr/bin/env bash
 
 ## You need git + phpcs + coder 7.x-2.x.
 
