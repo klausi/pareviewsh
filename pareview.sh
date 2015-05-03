@@ -233,8 +233,15 @@ for FILE in $TEXT_FILES; do
   fi
 done
 
-# run drupalcs
-DRUPALCS=`phpcs --standard=Drupal --report-width=75 --extensions=php,module,inc,install,test,profile,theme,js,css,info,txt,md .`
+# Run drupalcs.
+# If the project contains SCSS files then we don't check the included CSS files
+# because they are probably generated.
+SCSS_FILES=`find . -path ./.git -prune -o -type f -name \*.scss -print`
+if [ -z "$SCSS_FILES" ]; then
+  DRUPALCS=`phpcs --standard=Drupal --report-width=75 --extensions=php,module,inc,install,test,profile,theme,js,css,info,txt,md .`
+else
+  DRUPALCS=`phpcs --standard=Drupal --report-width=75 --extensions=php,module,inc,install,test,profile,theme,js,info,txt,md .`
+fi
 DRUPALCS_ERRORS=$?
 if [ $DRUPALCS_ERRORS = 1 ]; then
   LINES=`echo "$DRUPALCS" | wc -l`
