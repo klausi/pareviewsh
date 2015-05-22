@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-## You need git + phpcs + coder 7.x-2.x.
+## You need git + phpcs + coder 8.x-2.x + eslint + codespell
 
 if [[ $# -lt 1 || $1 == "--help" || $1 == "-h" ]]
 then
@@ -12,6 +12,19 @@ then
   echo "  `basename $0` sites/all/modules/rules"
   exit
 fi
+
+# Get the directory pareview.sh is stored in to access config files such as
+# eslint.json later.
+SOURCE="${BASH_SOURCE[0]}"
+# resolve $SOURCE until the file is no longer a symlink
+while [ -h "$SOURCE" ]; do
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+PAREVIEWSH_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
 
 # check if the first argument is valid directory.
 if [ -d $1 ]; then
@@ -256,6 +269,26 @@ if [ $DRUPALCS_ERRORS = 1 ]; then
   fi
 fi
 
+# Check if eslint is installed.
+hash eslint 2>/dev/null
+if [ $? = 0 ]; then
+  # Run eslint.
+  ESLINT=`eslint --config $PAREVIEWSH_DIR/eslint.json . 2>&1`
+  ESLINT_ERRORS=$?
+  if [ $ESLINT_ERRORS = 1 ]; then
+    LINES=`echo "$ESLINT" | wc -l`
+    if [ $LINES -gt 20 ]; then
+      echo "<li><a href=\"http://eslint.org/\">ESLint</a> has found some issues with your code (please check the <a href=\"https://www.drupal.org/node/172169\">JavaScript coding standards</a>). See attachment.</li>"
+    else
+      echo "<li><a href=\"http://eslint.org/\">ESLint</a> has found some issues with your code (please check the <a href=\"https://www.drupal.org/node/172169\">JavaScript coding standards</a>).</li>"
+      echo "<code>"
+      echo "$ESLINT"
+      echo "</code></li>"
+      ESLINT_ERRORS=0
+    fi
+  fi
+fi
+
 # Run DrupalPractice
 DRUPALPRACTICE=`phpcs --standard=DrupalPractice --report-width=75 --extensions=php,module,inc,install,test,profile,theme .`
 if [ $? = 1 ]; then
@@ -304,6 +337,15 @@ if [[ $DRUPALCS_ERRORS = 1 ]]; then
   echo "<code>"
   if [ -n "$DRUPALCS" ]; then
     echo "$DRUPALCS"
+  fi
+  echo "</code>"
+fi
+
+if [[ $ESLINT_ERRORS = 1 ]]; then
+  echo -e "\n\n\n"
+  echo "<code>"
+  if [ -n "$ESLINT" ]; then
+    echo "$ESLINT"
   fi
   echo "</code>"
 fi
