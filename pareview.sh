@@ -273,7 +273,7 @@ fi
 hash eslint 2>/dev/null
 if [ $? = 0 ]; then
   # Run eslint.
-  ESLINT=`eslint --config $PAREVIEWSH_DIR/eslint.json . 2>&1`
+  ESLINT=`eslint --config $PAREVIEWSH_DIR/eslint.json --format compact . 2>&1`
   ESLINT_ERRORS=$?
   if [ $ESLINT_ERRORS = 1 ]; then
     LINES=`echo "$ESLINT" | wc -l`

@@ -20,6 +20,7 @@ Requirements:
 - [Coder 8.x-2.x](http://drupal.org/project/coder) + [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer), see [installation instructions](https://drupal.org/node/1419988)
 - [DrupalSecure](http://drupal.org/sandbox/coltrane/1921926)
 - [Codespell](https://github.com/lucasdemarchi/codespell)
+- [ESLint](http://eslint.org)
 
 
 The script can be placed anywhere, for convenience you can add a link to one of
@@ -67,3 +68,9 @@ Register the phpcs command globally:
 Register the codespell command globally:
 
     sudo ln -s /home/klausi/workspace/codespell/codespell.py /usr/local/bin/codespell
+
+Installing ESLint on Ubuntu:
+
+    sudo apt-get install npm
+    sudo ln -s /usr/bin/nodejs /usr/bin/node
+    sudo npm i -g eslint
