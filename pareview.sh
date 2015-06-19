@@ -143,7 +143,11 @@ echo "<ul>"
 
 # README.txt present?
 if [ ! -e README.txt ] && [ ! -e README.md ] ; then
-  echo "<li>README.txt or README.md is missing, see the <a href=\"https://www.drupal.org/node/447604\">guidelines for in-project documentation</a>.</li>"
+  echo "<li>README.md or README.txt is missing, see the <a href=\"https://www.drupal.org/node/447604\">guidelines for in-project documentation</a>.</li>"
+fi
+# There should be only one README file either *.md or *.txt, not both.
+if [ -e README.txt ] && [ -e README.md ] ; then
+  echo "<li>There should be only one README file, either README.md or README.txt.</li>"
 fi
 # LICENSE.txt present?
 if [ -e LICENSE.txt ]; then
