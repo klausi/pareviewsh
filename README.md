@@ -17,8 +17,8 @@ Intallation
 Requirements:
 - A Bash shell environment (tested on Ubuntu, should also work on Macs)
 - Git
-- [Coder 8.x-2.x](http://www.drupal.org/project/coder) + [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer), see [installation instructions](https://www.drupal.org/node/1419988)
-- [DrupalSecure](http://www.drupal.org/sandbox/coltrane/1921926)
+- [Coder 8.x-2.x](https://www.drupal.org/project/coder) + [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer), see [installation instructions](https://www.drupal.org/node/1419988)
+- [DrupalSecure](https://www.drupal.org/sandbox/coltrane/1921926)
 - [Codespell](https://github.com/lucasdemarchi/codespell)
 - [ESLint](http://eslint.org)
 
