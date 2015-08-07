@@ -279,7 +279,7 @@ if [ $? = 0 ]; then
   # Run eslint.
   ESLINT=`eslint --config $PAREVIEWSH_DIR/eslint.json --format compact . 2>&1`
   ESLINT_ERRORS=$?
-  if [ $ESLINT_ERRORS = 1 ]; then
+  if [ $ESLINT_ERRORS -gt 0 ]; then
     LINES=`echo "$ESLINT" | wc -l`
     if [ $LINES -gt 20 ]; then
       echo "<li><a href=\"http://eslint.org/\">ESLint</a> has found some issues with your code (please check the <a href=\"https://www.drupal.org/node/172169\">JavaScript coding standards</a>). See attachment.</li>"
