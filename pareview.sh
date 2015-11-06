@@ -129,7 +129,7 @@ NAME=${INFO_FILE%%.*}
 PHP_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.test -or -name \*.profile`
 NON_TPL_FILES=`find . -not \( -name \*.tpl.php \) -and \( -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.test -name \*.profile \)`
 CODE_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js -or -name \*.test`
-TEXT_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js -or -name \*.test -or -name \*.css -or -name \*.txt -or -name \*.info`
+TEXT_FILES=`find . -name \*.module -or -name \*.php -or -name \*.inc -or -name \*.install -or -name \*.js -or -name \*.test -or -name \*.css -or -name \*.txt -or -name \*.info -or -name \*.yml`
 FILES=`find . -path ./.git -prune -o -type f -print`
 INFO_FILES=`find . -name \*.info`
 # ensure $PHP_FILES is not empty
@@ -255,9 +255,9 @@ done
 # because they are probably generated.
 SCSS_FILES=`find . -path ./.git -prune -o -type f -name \*.scss -print`
 if [ -z "$SCSS_FILES" ]; then
-  DRUPALCS=`phpcs --standard=Drupal --report-width=75 --extensions=php,module,inc,install,test,profile,theme,js,css,info,txt,md .`
+  DRUPALCS=`phpcs --standard=Drupal --report-width=75 --extensions=php,module,inc,install,test,profile,theme,js,css,info,txt,md,yml .`
 else
-  DRUPALCS=`phpcs --standard=Drupal --report-width=75 --extensions=php,module,inc,install,test,profile,theme,js,info,txt,md .`
+  DRUPALCS=`phpcs --standard=Drupal --report-width=75 --extensions=php,module,inc,install,test,profile,theme,js,info,txt,md,yml .`
 fi
 DRUPALCS_ERRORS=$?
 if [ $DRUPALCS_ERRORS = 1 ]; then
