@@ -284,7 +284,7 @@ if [ $? = 0 ]; then
     if [ $LINES -gt 20 ]; then
       echo "<li><a href=\"http://eslint.org/\">ESLint</a> has found some issues with your code (please check the <a href=\"https://www.drupal.org/node/172169\">JavaScript coding standards</a>). See attachment.</li>"
     else
-      echo "<li><a href=\"http://eslint.org/\">ESLint</a> has found some issues with your code (please check the <a href=\"https://www.drupal.org/node/172169\">JavaScript coding standards</a>).</li>"
+      echo "<li><a href=\"http://eslint.org/\">ESLint</a> has found some issues with your code (please check the <a href=\"https://www.drupal.org/node/172169\">JavaScript coding standards</a>)."
       echo "<code>"
       echo "$ESLINT"
       echo "</code></li>"
