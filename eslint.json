@@ -63,6 +63,8 @@
     "no-shadow-restricted-names": 2,
     "no-spaced-func": 2,
     "no-trailing-spaces": 2,
+    // Allow all gloabl variables since we cannot know all of them in Drupal contrib.
+    "no-undef": 0,
     "no-undef-init": 2,
     "no-undefined": 2,
     "no-unused-expressions": 2,
