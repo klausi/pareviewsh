@@ -45,25 +45,26 @@ Examples:
 Bleeding edge installation of depedencies
 -----------------------------------------
 
-If you always want to work with the newest versions of all PHPCS Standards
-involved using Git clones (replace /home/klausi/workspace with your desired
-working directory):
+If you always want to work with the newest version of Coder with Git clones
+(replace /home/klausi/workspace with your desired working directory):
 
     cd /home/klausi/workspace
-    git clone --branch master https://github.com/squizlabs/PHP_CodeSniffer.git
     git clone --branch 8.x-2.x http://git.drupal.org/project/coder.git
     git clone --branch master http://git.drupal.org/sandbox/coltrane/1921926.git drupalsecure
     git clone --branch master https://github.com/lucasdemarchi/codespell.git
 
-Then link the standards into PHPCS:
+Install composer dependencies:
 
-    ln -s /home/klausi/workspace/coder/coder_sniffer/Drupal /home/klausi/workspace/PHP_CodeSniffer/CodeSniffer/Standards
-    ln -s /home/klausi/workspace/coder/coder_sniffer/DrupalPractice /home/klausi/workspace/PHP_CodeSniffer/CodeSniffer/Standards
-    ln -s /home/klausi/workspace/drupalsecure/DrupalSecure /home/klausi/workspace/PHP_CodeSniffer/CodeSniffer/Standards
+    cd /home/klausi/workspace/coder
+    composer install
 
 Register the phpcs command globally:
 
-    sudo ln -s /home/klausi/workspace/PHP_CodeSniffer/scripts/phpcs /usr/local/bin
+    sudo ln -s /home/klausi/workspace/coder/vendor/bin/phpcs /usr/local/bin
+
+Register the Drupal standards with PHPCS:
+
+    phpcs --config-set installed_paths /home/klausi/workspace/coder/coder_sniffer,/home/klausi/workspace/drupalsecure
 
 Register the codespell command globally:
 
