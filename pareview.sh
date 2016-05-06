@@ -255,9 +255,9 @@ done
 # because they are probably generated.
 SCSS_FILES=`find . -path ./.git -prune -o -type f -name \*.scss -print`
 if [ -z "$SCSS_FILES" ]; then
-  DRUPALCS=`phpcs --standard=Drupal --report-width=75 --extensions=php,module,inc,install,test,profile,theme,js,css,info,txt,md,yml .`
+  DRUPALCS=`phpcs --standard=Drupal --report-width=74 --extensions=php,module,inc,install,test,profile,theme,js,css,info,txt,md,yml .`
 else
-  DRUPALCS=`phpcs --standard=Drupal --report-width=75 --extensions=php,module,inc,install,test,profile,theme,js,info,txt,md,yml .`
+  DRUPALCS=`phpcs --standard=Drupal --report-width=74 --extensions=php,module,inc,install,test,profile,theme,js,info,txt,md,yml .`
 fi
 DRUPALCS_ERRORS=$?
 if [ $DRUPALCS_ERRORS = 1 ]; then
@@ -294,7 +294,7 @@ if [ $? = 0 ]; then
 fi
 
 # Run DrupalPractice
-DRUPALPRACTICE=`phpcs --standard=DrupalPractice --report-width=75 --extensions=php,module,inc,install,test,profile,theme .`
+DRUPALPRACTICE=`phpcs --standard=DrupalPractice --report-width=74 --extensions=php,module,inc,install,test,profile,theme .`
 if [ $? = 1 ]; then
   echo "<li><a href=\"https://www.drupal.org/project/drupalpractice\">DrupalPractice</a> has found some issues with your code, but could be false positives."
   echo "<code>"
@@ -303,7 +303,7 @@ if [ $? = 1 ]; then
 fi
 
 # Run DrupalSecure and ignore stderr because it sometimes throws PHP warnings.
-DRUPALSECURE=`phpcs --standard=DrupalSecure --report-width=75 --extensions=php,module,inc,install,test,profile,theme . 2> /dev/null`
+DRUPALSECURE=`phpcs --standard=DrupalSecure --report-width=74 --extensions=php,module,inc,install,test,profile,theme . 2> /dev/null`
 if [ $? = 1 ]; then
   echo "<li><a href=\"https://www.drupal.org/sandbox/coltrane/1921926\">DrupalSecure</a> has found some issues with your code (please check the <a href=\"https://www.drupal.org/writing-secure-code\">Writing secure core</a> handbook)."
   echo "<code>"
