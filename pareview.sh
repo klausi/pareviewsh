@@ -176,6 +176,11 @@ if [ ! -z "$BACKUP" ]; then
   echo "$BACKUP"
   echo "</code></li>"
 fi
+# Fonts present?
+FONT_FILES=`find . -name \*.ttf -or -name \*.TTF`
+if [ -n FONT_FILES ]; then
+  echo "<li>Fonts were found and should be removed. See drupal.org's policy regarding 3rd party libraries and content: https://www.drupal.org/node/422996</li>"
+fi
 
 for FILE in $INFO_FILES; do
   # "version" in info file?
