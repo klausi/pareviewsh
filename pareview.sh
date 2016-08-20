@@ -255,9 +255,9 @@ done
 # because they are probably generated.
 SCSS_FILES=`find . -path ./.git -prune -o -type f -name \*.scss -print`
 if [ -z "$SCSS_FILES" ]; then
-  DRUPALCS=`phpcs --standard=Drupal --report-width=74 --extensions=php,module,inc,install,test,profile,theme,js,css,info,txt,md,yml .`
+  DRUPALCS=`phpcs --standard=Drupal --report-width=74 --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md,yml .`
 else
-  DRUPALCS=`phpcs --standard=Drupal --report-width=74 --extensions=php,module,inc,install,test,profile,theme,js,info,txt,md,yml .`
+  DRUPALCS=`phpcs --standard=Drupal --report-width=74 --extensions=php,module,inc,install,test,profile,theme,info,txt,md,yml .`
 fi
 DRUPALCS_ERRORS=$?
 if [ $DRUPALCS_ERRORS = 1 ]; then
