@@ -294,7 +294,7 @@ if [ $? = 0 ]; then
 fi
 
 # Run DrupalPractice
-DRUPALPRACTICE=`phpcs --standard=DrupalPractice --report-width=74 --extensions=php,module,inc,install,test,profile,theme .`
+DRUPALPRACTICE=`phpcs --standard=DrupalPractice --report-width=74 --extensions=php,module,inc,install,test,profile,theme,yml .`
 if [ $? = 1 ]; then
   echo "<li><a href=\"https://www.drupal.org/project/drupalpractice\">DrupalPractice</a> has found some issues with your code, but could be false positives."
   echo "<code>"
