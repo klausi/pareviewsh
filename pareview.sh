@@ -255,12 +255,12 @@ done
 # because they are probably generated.
 SCSS_FILES=`find . -path ./.git -prune -o -type f -name \*.scss -print`
 if [ -z "$SCSS_FILES" ]; then
-  DRUPALCS=`phpcs --standard=Drupal --report-width=74 --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md,yml .`
+  DRUPALCS=`phpcs --standard=Drupal --report-width=74 --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md,yml . 2>&1`
 else
-  DRUPALCS=`phpcs --standard=Drupal --report-width=74 --extensions=php,module,inc,install,test,profile,theme,info,txt,md,yml .`
+  DRUPALCS=`phpcs --standard=Drupal --report-width=74 --extensions=php,module,inc,install,test,profile,theme,info,txt,md,yml . 2>&1`
 fi
 DRUPALCS_ERRORS=$?
-if [ $DRUPALCS_ERRORS = 1 ]; then
+if [ $DRUPALCS_ERRORS -gt 0 ]; then
   LINES=`echo "$DRUPALCS" | wc -l`
   if [ $LINES -gt 20 ]; then
     echo "<li><a href=\"https://www.drupal.org/project/coder\">Coder Sniffer</a> has found some issues with your code (please check the <a href=\"https://www.drupal.org/node/318\">Drupal coding standards</a>). See attachment.</li>"
@@ -294,8 +294,8 @@ if [ $? = 0 ]; then
 fi
 
 # Run DrupalPractice
-DRUPALPRACTICE=`phpcs --standard=DrupalPractice --report-width=74 --extensions=php,module,inc,install,test,profile,theme,yml .`
-if [ $? = 1 ]; then
+DRUPALPRACTICE=`phpcs --standard=DrupalPractice --report-width=74 --extensions=php,module,inc,install,test,profile,theme,yml . 2>&1`
+if [ "$?" -gt 0 ]; then
   echo "<li><a href=\"https://www.drupal.org/project/drupalpractice\">DrupalPractice</a> has found some issues with your code, but could be false positives."
   echo "<code>"
   echo "$DRUPALPRACTICE"
@@ -336,7 +336,7 @@ echo "</ul>"
 
 echo "<i>This automated report was generated with <a href=\"https://www.drupal.org/project/pareviewsh\">PAReview.sh</a>, your friendly project application review script. You can also use the <a href=\"http://pareview.sh\">online version</a> to check your project. You have to get a <a href=\"https://www.drupal.org/node/1975228\">review bonus</a> to get a review from me.</i>"
 
-if [[ $DRUPALCS_ERRORS = 1 ]]; then
+if [[ $DRUPALCS_ERRORS -gt 0 ]]; then
   echo -e "\n\n\n"
   echo "<code>"
   if [ -n "$DRUPALCS" ]; then
