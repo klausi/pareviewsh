@@ -68,8 +68,8 @@ Register the Drupal standards with PHPCS:
 
 Register the codespell command globally:
 
-    cp /home/klausi/workspace/codespell/bin/codespell.py /home/klausi/workspace/codespell/codespell.py
-    sudo ln -s /home/klausi/workspace/codespell/codespell.py /usr/local/bin/codespell
+    cp /home/klausi/workspace/codespell/bin/codespell /home/klausi/workspace/codespell/codespell
+    sudo ln -s /home/klausi/workspace/codespell/codespell /usr/local/bin/codespell
 
 Installing ESLint on Ubuntu:
 
