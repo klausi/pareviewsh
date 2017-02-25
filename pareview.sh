@@ -314,8 +314,8 @@ fi
 # Check if codespell is installed.
 hash codespell 2>/dev/null
 if [ $? = 0 ]; then
-  # Run codespell.
-  SPELLING=`codespell -d . 2>/dev/null`
+  # Run codespell. Ignore *.lock files because they are generated.
+  SPELLING=`codespell --disable-colors --skip "*.lock" 2>/dev/null`
   if [ ! -z "$SPELLING" ]; then
     echo "<li><a href=\"https://github.com/lucasdemarchi/codespell\">Codespell</a> has found some spelling errors in your code."
     echo "<code>"
