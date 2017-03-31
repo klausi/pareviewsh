@@ -179,7 +179,7 @@ fi
 # Font files present?
 FONT_FILES=`find . -iname \*.ttf`
 for FILE in $FONT_FILES; do
-  echo "<li>$FILE appears to be a font file. It must be removed if your are not its author, tell users where to download it instead. See drupal.org's policy regarding 3rd party files: https://www.drupal.org/node/422996</li>"
+  echo "<li>$FILE appears to be a font file. It must be removed if you are not its author, tell users where to download it instead. See drupal.org's policy regarding 3rd party files: https://www.drupal.org/node/422996</li>"
 done
 
 for FILE in $INFO_FILES; do
